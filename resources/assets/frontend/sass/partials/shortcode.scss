@@ -1,0 +1,44 @@
+@import "../vendor/variables";
+@import "../vendor/mixins";
+
+@each $mg in $series {    
+    .margin-top-#{$mg} {
+        margin-top: #{$mg}px;        
+    }
+    .margin-bottom-#{$mg} {
+        margin-bottom: #{$mg}px;        
+    }
+    .margin-left-#{$mg} {
+        margin-left: #{$mg}px;        
+    }
+    .margin-right-#{$mg} {
+        margin-right: #{$mg}px;        
+    }
+}
+
+@each $pd in $series {    
+    .padding-top-#{$pd} {
+        padding-top: #{$pd}px;        
+    }
+    .padding-bottom-#{$pd} {
+        padding-bottom: #{$pd}px;        
+    }
+    .padding-left-#{$pd} {
+        padding-left: #{$pd}px;        
+    }
+    .padding-right-#{$pd} {
+        padding-right: #{$pd}px;        
+    }
+}
+
+@each $pd in $series {    
+    .padding-#{$pd} {
+        padding: #{$pd}px;        
+    }
+}
+
+@each $cl in $colors {    
+    .color-#{$cl} {
+        color: #{$cl};        
+    }
+}

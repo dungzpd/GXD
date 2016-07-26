@@ -1,0 +1,41 @@
+@import "../vendor/variables";
+@import "../vendor/mixins";
+
+.footer {
+  padding: 0;
+  & .copyright {
+    background: #f2f2f2 none repeat scroll 0 0;
+    color: #767676;
+    padding: 10px 0;
+    & p {
+      margin: 0;
+    }
+    & .copyright-text {
+      margin-top: 15px;
+    }
+  }
+  & .footer-content {
+    background: #fafafa none repeat scroll 0 0;
+    padding: 20px 0;
+    & .footer-item {
+      & h3 {
+        font-size: 18px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      & .menu-footer {
+        padding: 0;
+        & li {
+          list-style: none;
+        }
+      }
+      & .about-footer p .fa {
+        float: left;
+        font-size: 20px;
+        height: 30px;
+        margin-right: 10px;
+      }
+    }
+  }
+
+}

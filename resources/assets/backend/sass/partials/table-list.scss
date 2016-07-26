@@ -1,0 +1,39 @@
+@import "../vendor/variables";
+@import "../vendor/mixins";
+
+.series-action-top {
+    border-bottom: 1px solid #f9f9f9;
+    padding: 10px;
+}
+.series-action-bottom {
+    border-top: 1px solid #f9f9f9;
+    padding: 10px;
+}
+.table-list {
+    .item {
+        padding: 10px 5px;
+        height: 100%;
+        line-height: 30px;
+    }   
+    .header-list {
+        float: left;
+        width: 100%;
+        font-weight: bold;
+    }
+    .content-list {
+        float: left;
+        width: 100%;
+        
+        .item {
+            //overflow: hidden;
+        }
+        .item:nth-of-type(odd) {
+            background: #f9f9f9;
+        }
+    }
+    .footer-list {
+        float: left;
+        width: 100%;
+    }
+    
+}

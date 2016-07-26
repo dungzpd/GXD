@@ -1,0 +1,79 @@
+@import "../vendor/variables";
+@import "../vendor/mixins";
+
+.header {
+  background: #fff none repeat scroll 0 0;
+  padding: 5px 0;
+  width: 100%;
+  z-index: 999;
+  @include transition(all 0.3s ease 0s);
+  &.fixed {
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.22);
+    position: fixed;
+    left: 0;
+    top: 0;
+    & .logo img {
+      height: 50px;
+    }
+    & .main-menu ul {
+      margin: 5px 0 0;
+    }
+    & .login {
+      margin-top: 8px;
+    }
+  }
+  & .logo {
+    & img {
+      @include transition(all 0.3s ease 0s);
+    }
+  }
+  & .login {
+    margin-top: 15px;
+    margin-left: 40px;
+    @include transition(all 0.3s ease 0s);
+  }
+  & .hotline {
+    width: 100%;
+    & a {
+      color: #767676;
+      float: left;
+      font-size: 13px;
+      padding: 0 10px;
+    }
+    & h3 {
+      color: red;
+      float: right;
+      font-size: 18px;
+      font-weight: bold;
+      margin: 0;
+    }
+  }
+  & .main-menu {
+    & ul {
+      margin: 10px 0 0;
+      padding: 0;
+      @include transition(all 0.3s ease 0s);
+      & li {
+        float: left;
+        list-style: outside none none;
+        & a {
+          border-radius: 5px;
+          color: #767676;
+          display: block;
+          font-size: 15px;
+          padding: 10px;
+          &:hover, &:active, &:active:hover {
+            background: #5cb85c;
+            color: #fff;
+            text-decoration: none;
+          }
+        }
+        &.active a {
+          background: #5cb85c;
+          color: #fff;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+@import "../vendor/variables";
+@import "../vendor/mixins";
+.box-video{
+    .close.fileinput-remove{
+        display: none;
+    }
+    .file-preview-frame{
+        &.file-preview-initial{
+            width: 100% !important;
+            height: 160px;
+            padding: 10px;
+            margin: 0;
+            border: dashed 1px #ddd;
+            video{
+                width: 100% !important;
+                height: auto;
+            }
+
+        }
+    }
+    .file-preview-frame{
+        width: 100% !important;
+        height: 160px;
+        margin: 0;
+        padding: 0;
+    }
+}
+

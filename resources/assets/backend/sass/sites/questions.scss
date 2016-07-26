@@ -1,0 +1,25 @@
+.height-auto {
+    height: auto !important;
+}
+.asw-image {
+    color: transparent;
+    padding: 2px !important;    
+    
+    div {
+        color: #000000;
+    }    
+}
+.question-content {
+    height: 30px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    
+    p {
+        height: 30px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+}
+    

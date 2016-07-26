@@ -1,0 +1,46 @@
+@import "../vendor/variables";
+@import "../vendor/mixins";
+
+body.dragging, body.dragging *{
+    cursor: move !important;
+}
+
+.box-sortable{
+    width: 100%;
+    height: auto;
+    margin: 0;
+    border: dashed 1px #ddd;
+    min-height: 120px;
+    overflow-y: auto;
+    list-style: none;
+    padding: 0;
+
+    .bs-item{
+        display: block;
+        margin: 5px;
+        padding: 5px;
+        border: 1px solid #cccccc;
+        color: #0088cc;
+        background: #eeeeee;
+        cursor: move;
+    }
+
+    .placeholder{
+        display: block;
+        margin: 5px;
+        padding: 5px;
+        opacity: 0.4;
+        background-color: #F4E2C9;
+        min-height: 32px;
+    }
+
+    .dragged {
+        position: absolute;
+        top: 0;
+        opacity: 0.5;
+        border: none;
+        background-color: #F4E2C9;
+        z-index: 2000; 
+    }
+}
+

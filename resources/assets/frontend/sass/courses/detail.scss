@@ -1,0 +1,115 @@
+.course-nav-bar {
+  margin: 20px 0 0;
+  & ul {
+    border-color: #ccc;
+    border-style: solid;
+    border-width: 1px 0;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    & li {
+      float: left;
+      list-style: outside none none;
+      & a {
+        color: #666;
+        display: block;
+        font-size: 16px;
+        font-weight: 600;
+        padding: 10px 20px;
+        text-transform: capitalize;
+        border: none;
+        border-bottom: 2px solid transparent;
+      }
+      &:hover, &.active {
+        & a {
+          text-decoration: none;
+          border: none;
+          border-bottom: 2px solid #17aa1c;
+        }
+      }
+    }
+  }
+}
+.course-detail {
+  margin-bottom: 30px;
+}
+.course-detail-item {
+  & h3 {
+    color: #666;
+  }
+  & ul {
+    margin: 0;
+    padding: 0;
+    & li {
+      list-style: none;
+    }
+  }
+  & .social {
+    & li {
+      float: left;
+      margin-right: 10px;
+      & a {
+        background: #ccc none repeat scroll 0 0;
+        border-radius: 5px;
+        color: #fff;
+        display: block;
+        font-size: 23px;
+        height: 40px;
+        padding-top: 5px;
+        text-align: center;
+        width: 40px;
+      }
+    }
+  }
+}
+.img-teacher {
+    margin-right: 15px;
+    width: 80px;
+}
+.teaher-position {
+  margin-bottom: 10px;
+  & > a {
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+
+.single-page {
+  & .title-page {
+    border-bottom: 1px solid;
+    color: #337ab7;
+    font-size: 30px;
+    font-weight: 600;
+    padding-bottom: 5px;
+  }
+  & .single-courses-description {
+    & .course-des {
+      border-top: 1px solid #ccc;
+      margin-top: 20px;
+      padding-top: 10px;
+    }
+    & .sale-price {
+      color: red;
+      font-size: 32px;
+    }
+    & .regular-price {
+      font-weight: bold;
+    }
+    & .google-button {
+      margin-left: 15px;
+    }
+  }
+  & .course-category {
+    & p {
+      display: inline-block;
+      margin-right: 30px;
+    }
+  }
+}
+.fb_iframe_widget, .fb_iframe_widget span, .fb_iframe_widget span iframe[style] {
+  min-width: 100% !important;
+  width: 100% !important;
+}
+

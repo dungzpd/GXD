@@ -1,0 +1,22 @@
+@import "vendor/variables";
+@import "vendor/mixins";
+
+.overflow-hidden {
+    overflow: hidden;
+}
+.fa {
+    cursor: pointer;
+}
+.pointer {
+    cursor: pointer;
+}
+.width-100{
+    width: 100px;
+}
+.fl-left {
+    float: left;    
+}
+.fl-right {
+    float: right;
+}
+
