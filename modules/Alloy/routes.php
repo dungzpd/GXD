@@ -100,6 +100,7 @@ Route::group(['prefix' => 'admin'], function () {
 // Phan Dung add
                 Route::any('/products','Backend\Controllers\ProductController@index');
                 Route::any('/products/create', 'Backend\Controllers\ProductController@create');
+                Route::any('/products/delete/{id}', 'Backend\Controllers\ProductController@delete');
 //
                 Route::any('/questions', 'Backend\Controllers\QuestionController@index');
                 Route::any('/question/create', 'Backend\Controllers\QuestionController@create');

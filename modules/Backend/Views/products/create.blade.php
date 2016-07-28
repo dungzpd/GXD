@@ -1,21 +1,21 @@
 @extends('Backend::layouts.default')
 
-@section('title', Lang::get($form['title']))
+@section('title', $isEdit ? Lang::get('products.add') : Lang::get('products.add'))
 
 @include('Backend::products.scripts')
 
 @section('content')
-    {!! Breadcrumbs::render('courses.update', $products) !!}
+   
     <!-- Main content -->
     <section class="content">
         <div class="row">
-            <form action="{!! $form['action'] !!}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+            <form action="{!! $url !!}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
             {!! csrf_field(csrf_token()) !!}
             <!-- /.col -->
                 <div class="col-md-12">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">@lang('products.create')</h3>
+                            <h3 class="box-title"></h3>
                             <!-- /.box-tools -->
                         </div>
                         <!-- /.box-header -->
@@ -98,27 +98,7 @@
                                         </div>
                                     </div>
                                     <!-- /.detail -->
-                                    <!-- .categories -->
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">@lang('products.category')</label>
-                                        <div class="col-sm-7">
-                                            <select class="form-control"
-                                                    name="products[categories][]"
-                                                    init="selectize"
-                                                    multiple="multiple"
-                                                    data-placeholder="@lang('products.selectCategory')">
-                                                @foreach($categories as $category)
-                                                    <option value="{!! $category->id !!}"
-                                                            @if (!empty($categoriesId) && in_array($category->id, $categoriesId))
-                                                            selected="selected"
-                                                            @endif>
-                                                        {!! $category->name !!}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!-- /.categories -->	
+                                    
                                 </div>
                             </div>
                         </div>
@@ -126,7 +106,7 @@
                     <!-- /.box-body -->
                     <div class="box-footer no-padding">
                         <div class="mailbox-controls series-action-bottom text-right">
-                            @if (!$form['isEdit'])
+                            @if (!$isEdit)
                                 <button type="submit" name="saveAndCreate" class="btn btn-success btn-sm">
                                     <i class="fa fa-save"></i>
                                     @lang('common.saveAndCreate')

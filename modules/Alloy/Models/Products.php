@@ -15,15 +15,15 @@ class Products extends Base {
      *
      * @var string
      */
-    protected $table = 'tblproducts';
-
+    protected $table = 'products';
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = ['id', 'name', 'price', 'icon',
-        'description', 'id_email', 'product_type'];
+        'description', 'id_email', 'status',  'product_type'];
 
     
 
@@ -35,7 +35,10 @@ class Products extends Base {
         return $this->belongsTo('Alloy\Models\Certificate', 'certificate_id');
     }
 
-    
+    public static function allProduct(){
+        $products = Products::where(['status'=>'active'])->get();
+        return $products;
+    }
 
     
 
