@@ -115,6 +115,33 @@
                     </li>
                 </ul>
             </li>
+            <!--Phan Dung add Products-->
+            <li class="treeview
+            @if (in_array(\Request::url(), [URL::action('\Backend\Controllers\ProductController@index'), URL::action('\Backend\Controllers\CourseController@create')]))
+                {!! 'active' !!}
+            @endif">
+                <a href="#">
+                    <i class="glyphicon glyphicon-hdd"></i>
+                    <span>@lang('products.products')</span> 
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li>
+                        <a href="{!! URL::action('\Backend\Controllers\ProductController@index') !!}">
+                            <i class="fa fa-circle-o"></i>
+                            @lang('products.list')
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{!! URL::action('\Backend\Controllers\ProductController@create') !!}">
+                            <i class="fa fa-circle-o"></i>
+                            @lang('products.add')
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!--End Products-->
             <li class="treeview
             @if (in_array(\Request::url(), [URL::action('\Backend\Controllers\LessonsController@index'), URL::action('\Backend\Controllers\LessonsController@create')]))
                 {!! 'active' !!}

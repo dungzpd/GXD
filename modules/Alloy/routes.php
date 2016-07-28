@@ -31,6 +31,11 @@ Route::group(['middleware' => ['normal']], function () {
     Route::any('/courses/category/{alias}', 'Frontend\Controllers\CourseController@category');
     Route::any('/courses/search', 'Frontend\Controllers\CourseController@search');
 
+// Phan Dung add
+
+
+   // 
+
     Route::any('/user/profile/{id}', 'Frontend\Controllers\UserController@profile');
     Route::any('/teacher', 'Frontend\Controllers\UserController@teacher');
     Route::any('/mycourses', 'Frontend\Controllers\UserController@mycourses');
@@ -92,7 +97,10 @@ Route::group(['prefix' => 'admin'], function () {
                 Route::any('/courses/edit/{id}', 'Backend\Controllers\CourseController@edit');
                 Route::any('/courses/delete/{id}', 'Backend\Controllers\CourseController@delete');
                  Route::any('/courses/deleteMultiple', 'Backend\Controllers\CourseController@deleteMultiple');
-
+// Phan Dung add
+                Route::any('/products','Backend\Controllers\ProductController@index');
+                Route::any('/products/create', 'Backend\Controllers\ProductController@create');
+//
                 Route::any('/questions', 'Backend\Controllers\QuestionController@index');
                 Route::any('/question/create', 'Backend\Controllers\QuestionController@create');
                 Route::any('/question/edit/{id}', 'Backend\Controllers\QuestionController@edit');
