@@ -49,7 +49,25 @@
                                         </div>
                                 @endif
                                 <!-- /.message -->
-
+                                 <!-- .product_type -->
+                                    <div class="form-group {!! !empty($messages) && $messages->has('products.product_type') ? 'has-error' : '' !!}">
+                                        <label for="name" class="col-sm-3 control-label">
+                                            @lang('products.product_type')
+                                            <i class="fa fa-asterisk color-red font-size-7"></i>
+                                        </label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="product_type" name="products[product_type]"
+                                                   value="{!! $products['products']['product_type'] or '' !!}"
+                                                   placeholder="@lang('products.product_type')">
+                                            @if(!empty($messages) && $messages->has('products.product_type'))
+                                                <span class="help-block">
+                                                    <i class="fa fa-times-circle-o margin-right-5"></i>
+                                                    {!! $messages->first('products.product_type') !!}
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <!-- /.product_type -->
                                     <!-- .name -->
                                     <div class="form-group {!! !empty($messages) && $messages->has('products.name') ? 'has-error' : '' !!}">
                                         <label for="name" class="col-sm-3 control-label">
@@ -69,7 +87,17 @@
                                         </div>
                                     </div>
                                     <!-- /.name -->
-
+                                    <!-- .image -->
+                                    <div class="form-group  {!! !empty($messages) && $messages->has('products.image') ? 'has-error' : '' !!}">
+                                    <label for="file-image" class="col-sm-3 control-label">@lang('products.image')</label>
+                                    <div class = "col-sm-7">
+                                        <input type="file" id="file-image" name="products[image]">
+                                        <span class="help-block">{!! !empty($messages) && $messages->has('products.image') ? $messages->first('products.image') : '' !!}</span>
+                                        <input type="hidden" name="products[tmpImage]" value="{!! $data['products']['image'] or '' !!}">
+                                    </div>
+                                        
+                                    </div>
+                                    <!-- /.image -->
                                     <!-- .price -->
                                     <div class="form-group {!! !empty($messages) && $messages->has('products.price') ? 'has-error' : '' !!}">
                                         <label for="price" class="col-sm-3 control-label">@lang('products.price')
@@ -88,16 +116,20 @@
                                     </div>
                                     <!-- /.price -->
 
-                                    <!-- .detail -->
-                                    <div class="form-group">
-                                        <label for="detail"
-                                               class="col-sm-3 control-label">@lang('products.detail')</label>
-                                        <div class="col-sm-7">
-                                            <textarea init="ckeditor" class="form-control" rows="3" id="description"
-                                                      name="products[detail]">{!! $products['products']['detail'] or '' !!}</textarea>
+                                    <!-- .description -->
+                                    <div class="form-group {!! !empty($messages) && $messages->has('products.description') ? 'has-error' : '' !!}">
+                                        <label for="description" class="col-sm-3 control-label">@lang('products.description')</label>
+                                        <div class = "col-sm-7">
+                                            <textarea id="description" 
+                                           init="ckeditor"
+                                           name="products[description]" 
+                                           class="wysihtml5 form-control">{!! $data['products']['description'] or '' !!}</textarea>
+                                           <span class="help-block">{!! !empty($messages) && $messages->has('products.description') ? $messages->first('products.description') : '' !!}</span>
                                         </div>
+                                        
+                                    
                                     </div>
-                                    <!-- /.detail -->
+                                    <!-- /.description -->
                                     
                                 </div>
                             </div>

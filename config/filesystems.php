@@ -54,6 +54,10 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/images/courses')
         ],
+        'imagesProducts' => [
+            'driver' => 'local',
+            'root' => storage_path('app/images/products')
+        ],
         'imagesCategories' => [
             'driver' => 'local',
             'root' => storage_path('app/images/categories')

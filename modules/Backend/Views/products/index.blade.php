@@ -1,204 +1,184 @@
 @extends('Backend::layouts.default')
 
 @section('title', Lang::get('products.list'))
-die('alkdjsflkasdjflsakdjflasdfjasldkfjsaldfjaslkdfjasldkfjasl;df');
+
 @section('content')
 
 {!! Breadcrumbs::render('courses') !!}
-
-<div class="content">
+<!-- Main content -->
+<section class="content">
     <div class="row">
-        <!-- /.col -->
-        <div class="col-md-12">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">@lang('products.products')</h3>
+    <!-- .col -->
+    <div class="col-md-12">
+        <div class="box box-primary">
+        <!-- .box-header -->
+        <div class="box-header with-border">
+            <h3 class="box-title">@lang('products.list')</h3>
 
-                    <div class="box-tools pull-right">
-                        <form action="{!! URL::action('\Backend\Controllers\ProductController@index') !!}" method="get">
-                            @if (!empty($categories))
-                                <div class="has-feedback">
-                                    <div class="col-sm-12">
-                                        <div class="col-sm-6 no-padding">
-                                            <select name="category" class="form-control  input-sm">
-                                                @foreach($categories as $c)
-                                                    <option value="{!! $c->id !!}"
-                                                            @if (isset($category) && ($category == $c->id))
-                                                            selected="selected"
-                                                            @endif>{!! $c->name !!}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-6 no-padding">
-                                            <input type="text" class="form-control input-sm" name="keyword" placeholder="@lang('courses.search')" value="{!! isset($keyword) ? $keyword : '' !!}">
-                                            <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                                        </div>
-                                    </div>
-                            @endif
-
-                            </div>
-                        </form>                        
-                    </div>
-                    <!-- /.box-tools -->
+            <div class="box-tools pull-right">
+            <form action="{!! URL::action('\Backend\Controllers\ProductController@index') !!}" method="get">
+                {!! csrf_field(csrf_token()) !!} 
+                <div class="has-feedback">
+                <input type="text" 
+                       name="keyword"
+                       class="form-control input-sm" 
+                       placeholder="@lang('products.searchCategories')"
+                       value="{!! $keyword or '' !!}">
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>
                 </div>
-                <!-- /.box-header -->
-                <div class="box-body no-padding">
-                    <div class="mailbox-controls series-action-top">
+            </form>
+            </div>
+            <!-- /.box-tools -->
+        </div>
+        <!-- /.box-header -->
+
+        <!-- .box-body -->
+        <div class="box-body no-padding">
+            <!-- .toobar-action -->                
+            <div class="mailbox-controls series-action-top">
+            <!-- Check all button -->       
+            <a href="{!! URL::action('\Backend\Controllers\ProductController@create') !!}">
+                <button type="button"
+                        init="tooltip"
+                        title="@lang('products.add')"
+                        class="btn btn-info btn-sm"><i class="fa fa-plus"></i></button>
+            </a>
+            <button type="button"
+                    init="tooltip"
+                    title="@lang('products.delete')"
+                    class="btn btn-danger btn-sm" data-link="{!! URL::action('\Backend\Controllers\ProductController@deleteMultiple') !!}"><i class="fa fa-trash"></i></button>
+            <a href="{!! URL::action('\Backend\Controllers\ProductController@index') !!}">
+                <button type="button"
+                        init="tooltip"
+                        title="@lang('products.reload')"
+                        class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
+            </a>
+            <div class="pull-right">                            
+                @include('Backend::layouts.partials.pagination', array('data' => $products))
+                <!-- /.btn-group -->
+            </div>
+            </div>
+            <!-- /.toobar-action -->
+
+            <!-- .table-list -->
+            <div class="table-list overflow-hidden">
+            <!-- .header-list -->
+            <div class="row-group header-list">
+                <div class="row item">
+                <div class="col-md-12">
+                    <div class="col-md-1 padding-left-5">
+                    <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
+                    </div>
+                    <div class="col-md-4">
+                    @lang('products.name')
+                    {!! \Alloy\Facades\MainFacade::generateSort(['link' => '\Backend\Controllers\ProductController@index', 'field' => 'name', 'sort' => $sort, 'field_vs' => $field, 'keyword' => (isset($keyword) && !empty($keyword)) ? $keyword : null ]) !!}
+                    </div>
+                    <div class="col-md-3">
+                    @lang('products.description')
+                    </div>
+                    <div class="col-md-2">
+                    @lang('common.order')
+                    {!! \Alloy\Facades\MainFacade::generateSort(['link' => '\Backend\Controllers\ProductController@index', 'field' => 'order', 'sort' => $sort, 'field_vs' => $field, 'keyword' => (isset($keyword) && !empty($keyword)) ? $keyword : null]) !!}
+                    </div>
+                   <!-- <div class="col-md-2">
+                    {{--@lang('common.status')--}}
+                    {{--{!! \Alloy\Facades\MainFacade::generateSort(['link' => '\Backend\Controllers\ProductController@index', 'field' => 'status', 'sort' => $sort, 'field_vs' => $field, 'keyword' => (isset($keyword) && !empty($keyword)) ? $keyword : null]) !!}--}}
+                    </div>-->
+                    <div class="col-md-2">
+                    @lang('common.functional')
+                    </div> 
+                </div>
+                </div>
+            </div>
+            <!-- /.header-list -->
+
+            <!-- .content-list -->
+            <div class="row-group content-list">
+                @if(!empty($products) && $products->count() > 0)
+                @foreach($products as $item)
+                            <div class="row item">
+                                <div class="col-md-12">
+                                    <div class="col-md-1 padding-left-10">
+                                        <input type="checkbox" 
+                                            init="iCheck"
+                                            data-icheck-class="icheckbox_flat-blue"
+                                            data-increase-area="20%"
+                                            value="{!! $item->id !!}">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="{!! URL::action('\Backend\Controllers\ProductController@edit', array('id' => $item->id))!!}">{!! $item->name !!}</a>
+                                    </div>
+                                    <div class="col-md-3">
+                                        {!! str_limit(strip_tags($item->description), 50) !!}
+                                    </div>
+                                    <div class="col-md-2">
+                                        {!! $item->order !!}
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="{!! URL::action('\Backend\Controllers\ProductController@status', ['id' => $item->id, 'currentPage' => $products->currentPage()]) !!}">
+                                            <button type="button"
+                                                    init="tooltip"
+                                                    title="@lang('common.status')"
+                                                    class="btn btn-{!! $item->status == 'active' ? 'info' : 'warning' !!} btn-sm checkbox-toggle"><i class="fa fa-toggle-{!! $item->status == 'active' ? 'on' : 'off' !!}"></i></button>
+                                        </a>
+                                        <a href="{!! URL::action('\Backend\Controllers\ProductController@edit', array('id' => $item->id)) !!}"
+                                           init="tooltip"
+                                           title="@lang('common.edit')"
+                                           class="btn btn-success btn-sm">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <button init="tooltip"
+                                                title="@lang('common.delete')"
+                                            class="btn btn-danger btn-sm"
+                                            data-toggle="modal" data-target="#modal-delete-{!! $item->id !!}">
+                                            <i class="fa fa-trash"></i>  
+                                        </button>
+                                        <!-- .confirm-delete -->
+                                        @include('Backend::products.delete', ['item' => $item, 'currentPage' => $products->currentPage()])
+                                        <!-- /.confirm-delete -->
+                                    </div> 
+                                </div>
+                            </div>
+                @endforeach
+
+                @endif
+            </div>
+            <!-- /.content-list -->                                      
+            </div>
+            <!-- /.table-list -->
+
+            <!-- .navigation -->
+                    <div class="border-top series-action-bottom">
                         <!-- Check all button -->       
                         <a href="{!! URL::action('\Backend\Controllers\ProductController@create') !!}">
                             <button type="button"
                                     init="tooltip"
-                                    title="@lang('courses.add')"
-                                    class="btn btn-info btn-sm"><i class="fa fa-plus"></i></button>
-                        </a>
-                        <button type="button"
-                                class="btn btn-danger btn-sm"
-                                init="tooltip"
-                                title="@lang('courses.delete')"
-                                data-link="{!! URL::action('\Backend\Controllers\ProductController@deleteMultiple') !!}">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                        <a href="{!! URL::action('\Backend\Controllers\ProductController@index') !!}">
-                            <button type="button"
-                                    init="tooltip"
-                                    title="@lang('courses.reload')"
-                                    class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
-                        </a>
-                        <div class="pull-right"> 
-                            @if(!empty($list)) 
-                                @include('Backend::layouts.partials.pagination', array('data' => $list))
-                            @endif
-                            <!-- /.btn-group -->
-                        </div>
-                        <!-- /.pull-right -->
-                    </div>
-                    <div class="table-list overflow-hidden">
-                        <div class="row-group header-list">
-                            <div class="row item">
-                                <div class="col-md-12">
-                                    <div class="col-md-1 padding-left-5">                                        
-                                        <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
-                                    </div>
-                                    <div class="col-md-1">
-                                        @lang('courses.mkh')
-                                        {!! \Alloy\Facades\MainFacade::generateSort(['link' => '\Backend\Controllers\ProductController@index', 'field' => 'id', 'sort' => $sort, 'field_vs' => $field]) !!}
-                                    </div>
-                                    <div class="col-md-4">
-                                        @lang('courses.name')                                         
-                                        {!! \Alloy\Facades\MainFacade::generateSort(['link' => '\Backend\Controllers\ProductController@index', 'field' => 'name', 'sort' => $sort, 'field_vs' => $field]) !!}
-                                    </div>                                    
-                                    <div class="col-md-2">
-                                        @lang('courses.price')
-                                        {!! \Alloy\Facades\MainFacade::generateSort(['link' => '\Backend\Controllers\ProductController@index', 'field' => 'price', 'sort' => $sort, 'field_vs' => $field]) !!}
-                                    </div>
-                                    <div class="col-md-2">
-                                        @lang('courses.duration')
-                                        {!! \Alloy\Facades\MainFacade::generateSort(['link' => '\Backend\Controllers\ProductController@index', 'field' => 'duration', 'sort' => $sort, 'field_vs' => $field]) !!}
-                                    </div>
-                                    <div class="col-md-2">
-                                        @lang('common.functional')
-                                    </div>
-                                </div>
-                            </div>      
-                        </div>
-
-                        <div class="row-group content-list">
-                            @if(!empty($list)) 
-                                @foreach($list as $item)
-                                <div class="row item">
-                                    <div class="col-md-12">
-                                        <div class="col-md-1 padding-left-10">
-                                            <input type="checkbox"
-                                                init="iCheck"
-                                                data-icheck-class="icheckbox_flat-blue"
-                                                data-increase-area="20%">                                                
-                                        </div>
-                                        <div class="col-md-1">
-                                            <a href="{!! URL::action('\Backend\Controllers\ProductController@edit', array('id' => $item->id))!!}">
-                                                {!! $item->id !!}                               
-                                            </a>
-                                        </div> 
-                                        <div class="col-md-4">
-                                            <a href="{!! URL::action('\Backend\Controllers\ProductController@edit', array('id' => $item->id))!!}">
-                                                {!! $item->name !!}                               
-                                            </a>
-                                        </div>                                            
-                                        <div class="col-md-2">
-                                            {!! $item->price !!}                                
-                                        </div>
-                                        <div class="col-md-2">
-                                            {!! $item->duration !!}                           
-                                        </div>
-                                        <div class="col-md-2">
-                                            <a href="{!! URL::action('\Backend\Controllers\ProductController@status', array('id' => $item->id, 'currentPage' => $list->currentPage())) !!}">
-                                                <button type="button"
-                                                        init="tooltip"
-                                                        title="@lang('common.status')"
-                                                        class="btn btn-{!! $item->status == 'active' ? 'info' : 'warning' !!} btn-sm"><i class="fa fa-toggle-{!! $item->status > 0 ? 'on' : 'off' !!}"></i></button>
-                                            </a>
-                                            <a href="{!! URL::action('\Backend\Controllers\ProductController@edit', array('id' => $item->id)) !!}">
-                                                <button type="button" init="tooltip"
-                                                        title="@lang('common.edit')"
-                                                        class="btn btn-success btn-sm"><i class="fa fa-edit"></i></button>
-                                            </a>
-                                            <a href="{!! URL::action('\Backend\Controllers\ProductController@delete', array('id' => $item->id, 'currentPage' => $list->currentPage())) !!}">
-                                                <button type="button"
-                                                        init="tooltip"
-                                                        title="@lang('common.delete')"
-                                                        class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                            </a>                          
-                                        </div> 
-                                    </div>
-                                </div>  
-                                @endforeach
-                            @endif
-                            @if(empty($list))
-                            <div class="row item">
-                                <div class="col-md-12 text-center">
-                                    @lang('common.data.empty')
-                                </div>
-                            </div>
-                            @endif
-                        </div>
-
-                        <div class="row-group footer-list"></div>
-                    </div>
-                </div>
-                <!-- /.box-body -->
-                <div class="box-footer no-padding">
-                    <div class="mailbox-controls series-action-bottom">
-                        <a href="{!! URL::action('\Backend\Controllers\ProductController@create') !!}">
-                            <button type="button"
-                                    init="tooltip"
-                                    title="@lang('courses.add')"
+                                    title="@lang('categories.add')"
                                     class="btn btn-info btn-sm"><i class="fa fa-plus"></i></button>
                         </a>
                         <button type="button"
                                 init="tooltip"
-                                title="@lang('courses.delete')"
-                                class="btn btn-danger btn-sm"
-                                data-link="{!! URL::action('\Backend\Controllers\ProductController@deleteMultiple') !!}">
-                            <i class="fa fa-trash"></i>
-                        </button>
+                                title="@lang('categories.delete')"
+                                class="btn btn-danger btn-sm" data-link="{!! URL::action('\Backend\Controllers\ProductController@deleteMultiple') !!}"><i class="fa fa-trash"></i></button>
                         <a href="{!! URL::action('\Backend\Controllers\ProductController@index') !!}">
                             <button type="button"
                                     init="tooltip"
-                                    title="@lang('courses.reload')"
+                                    title="@lang('categories.reload')"
                                     class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
-                        </a>                        
-                        <div class="pull-right">
-                            @if(!empty($list)) 
-                                @include('Backend::layouts.partials.pagination', array('data' => $list))
-                            @endif
+                        </a>
+                        <div class="pull-right">                            
+                            @include('Backend::layouts.partials.pagination', array('data' => $products))
                             <!-- /.btn-group -->
                         </div>
-                        <!-- /.pull-right -->
                     </div>
-                </div>
-            </div>
-            <!-- /. box -->
+            <!-- /.navigation -->
         </div>
-        <!-- /.col -->
+        <!-- /.box-body -->            
+
+        </div>
     </div>
-</div>
+    <!-- /.col -->
+    </div>
+</section>
+
 @stop

@@ -177,6 +177,7 @@ class BaseController extends Controller
      * */
     protected function uploadFile($field = null, $path = null, $aliasName = null, $oldFile = null)
     {
+
         if (!empty($field) && !empty($path) && \Request::hasFile($field)) {
 
             // Delete old file before upload new file
@@ -187,9 +188,12 @@ class BaseController extends Controller
             try {
                 ini_set('memory_limit', '-1');
 //                ini_set('memory_limit','1024M');
+              //  die($file->getRealPath());
                 if (Storage::disk(Run::disk($path))->put($fileName, file_get_contents($file->getRealPath()))) {
+                  //  die("vao day".$path);
                     return $fileName;
                 }
+               // die("Khong vao".$file->getRealPath());
             } catch (\Exception $e) {
                 return false;
             }

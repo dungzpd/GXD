@@ -52,10 +52,10 @@ class ProductController extends BaseController
         $sort = Input::get('sort');
         $keyword = Input::get('keyword');
 
-        $categories = Categories::getList(array('by' => $field, 'is' => $sort), array('fields' => ['name', 'description'], 'value' => $keyword))
+        $products = Products::getList(array('by' => $field, 'is' => $sort), array('fields' => ['name', 'description'], 'value' => $keyword))
             ->paginate($this->perPage)->appends(Input::only('field', 'keyword', 'sort'));
 
-        return view('Backend::categories.index', compact('categories', 'keyword', 'field', 'sort'));
+        return view('Backend::products.index', compact('products', 'keyword', 'field', 'sort'));
     }
 
     /**
@@ -80,6 +80,7 @@ class ProductController extends BaseController
 
                // die("khong co loi");
                 $image = $this->uploadFile('products.image', $this->imgPath, str_slug($result['data']['products']['name']), null);
+               // die($image);
                 if (!$image) {
                     $result['data']['products']['image'] = null;
                 } else {
@@ -230,14 +231,15 @@ class ProductController extends BaseController
      * */
     protected function onStore($product, $params)
     {
-
+        $product->product_type = isset($params['product_type']) ? $params['product_type'] : '';
         $product->name = isset($params['name']) ? $params['name'] : '';
        
         $product->description = isset($params['description']) ? $params['description'] : '';
-        //$product->icon = isset($params['image']) ? $params['image'] : null;
+        $product->price = isset($params['price']) ? $params['price'] : null;
+        $product->icon = isset($params['image']) ? $params['image'] : null;
        
         $product->status = isset($params['status']) ? $params['status'] : 'inactive';
-
+        $product->id_email = 1;
         if ($product->save()) {
             //$this->onStoreCourse($product, (isset($params['courses']) ? $params['courses'] : null));
             return true;

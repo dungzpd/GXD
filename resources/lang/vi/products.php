@@ -5,7 +5,7 @@ return [
     'courses' => 'Khóa học',
     'list' => 'Danh sách sản phẩm',
     'create' => 'Nhập thông tin sản phẩm',
-    'delete' => 'Xóa khóa học',
+    'delete' => 'Xóa sản phẩm',
     'reload' => 'Tải lại danh sách khóa học',
     'search' => 'Tìm kiếm khoa học',
     'add' => 'Thêm mới sản phẩm',
@@ -34,7 +34,7 @@ return [
     'nameSection' => 'Tên section',
     'addMoreSection' => 'Thêm section',
     'removeSection' => 'Xóa section',
-
+    'product_type' => 'Product Type',
     'detailLesson' => 'Chi tiết bài học',
     'document' => 'Tài liệu',
     'exams' => 'Bài thi'
