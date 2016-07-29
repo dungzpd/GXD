@@ -123,6 +123,9 @@ Route::group(['prefix' => 'admin'], function () {
                 // End Route Lessons
 
                 Route::post('/upload-vides', 'Backend\Controllers\BaseController@uploadVideos');
+                
+                //VA add
+                Route::get('/key', 'Backend\Controllers\KeyController@index');
         });
 });
 
