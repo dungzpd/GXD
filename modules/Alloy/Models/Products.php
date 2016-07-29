@@ -16,6 +16,7 @@ class Products extends Base {
      * @var string
      */
     protected $table = 'products';
+    
     //public $timestamps = false;
     /**
      * The attributes that are mass assignable.

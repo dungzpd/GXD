@@ -117,7 +117,7 @@
             </li>
             <!--Phan Dung add Products-->
             <li class="treeview
-            @if (in_array(\Request::url(), [URL::action('\Backend\Controllers\ProductController@index'), URL::action('\Backend\Controllers\CourseController@create')]))
+            @if (in_array(\Request::url(), [URL::action('\Backend\Controllers\ProductController@index'), URL::action('\Backend\Controllers\ProductController@create')]))
                 {!! 'active' !!}
             @endif">
                 <a href="#">
