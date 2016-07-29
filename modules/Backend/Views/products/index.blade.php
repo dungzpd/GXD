@@ -22,7 +22,7 @@
                 <input type="text" 
                        name="keyword"
                        class="form-control input-sm" 
-                       placeholder="@lang('products.searchCategories')"
+                       placeholder="@lang('products.searchProducts')"
                        value="{!! $keyword or '' !!}">
                 <span class="glyphicon glyphicon-search form-control-feedback"></span>
                 </div>
@@ -77,8 +77,8 @@
                     @lang('products.description')
                     </div>
                     <div class="col-md-2">
-                    @lang('common.order')
-                    {!! \Alloy\Facades\MainFacade::generateSort(['link' => '\Backend\Controllers\ProductController@index', 'field' => 'order', 'sort' => $sort, 'field_vs' => $field, 'keyword' => (isset($keyword) && !empty($keyword)) ? $keyword : null]) !!}
+                    @lang('products.product_type')
+                    {!! \Alloy\Facades\MainFacade::generateSort(['link' => '\Backend\Controllers\ProductController@index', 'field' => 'product_type', 'sort' => $sort, 'field_vs' => $field, 'keyword' => (isset($keyword) && !empty($keyword)) ? $keyword : null]) !!}
                     </div>
                    <!-- <div class="col-md-2">
                     {{--@lang('common.status')--}}
@@ -108,11 +108,12 @@
                                     <div class="col-md-4">
                                         <a href="{!! URL::action('\Backend\Controllers\ProductController@edit', array('id' => $item->id))!!}">{!! $item->name !!}</a>
                                     </div>
+                                    <!--Mô tả ngắn gọn-->
                                     <div class="col-md-3">
                                         {!! str_limit(strip_tags($item->description), 50) !!}
                                     </div>
                                     <div class="col-md-2">
-                                        {!! $item->order !!}
+                                        {!! $item->product_type !!}
                                     </div>
                                     <div class="col-md-2">
                                         <a href="{!! URL::action('\Backend\Controllers\ProductController@status', ['id' => $item->id, 'currentPage' => $products->currentPage()]) !!}">

@@ -54,7 +54,7 @@ class ProductController extends BaseController
 //die();
         $products = Products::getList(array('by' => $field, 'is' => $sort), array('fields' => ['name', 'description'], 'value' => $keyword))
             ->paginate($this->perPage)->appends(Input::only('field', 'keyword', 'sort'));
-            die();
+            //die();
         return view('Backend::products.index', compact('products', 'keyword', 'field', 'sort'));
     }
 
@@ -114,44 +114,44 @@ class ProductController extends BaseController
         $result = array();
 
         $result['isEdit'] = true;
-        $result['data']['categories'] = $category = Categories::find($id);
-        $result['data']['coursesId'] = [];
+        $result['data']['products'] = $products = Products::find($id);
+        //$result['data']['coursesId'] = [];
         // convert
-        foreach ($category->courses as $course) {
-            $result['data']['coursesId'][] = $course->pivot->course_id;
-        }
+       // foreach ($category->courses as $course) {
+       //     $result['data']['coursesId'][] = $course->pivot->course_id;
+       // }
 
         if (\Request::isMethod('post') && !empty(\Request::all())) {
             $result['data'] = \Request::all();
 
-            $validator = CategoriesValidate::validator($result['data'], $id);
+            $validator = ProductsValidate::validator($result['data'], $id);
             $result['messages'] = $validator->errors();
             if (!$result['messages']->count()) {
 
-                $category = Categories::find($id);
+                $products = Products::find($id);
 
-                if ($category) {
-                    $params = $result['data']['categories'];
+                if ($products) {
+                    $params = $result['data']['products'];
 
                     // check upload image
-                    $image = $this->uploadFile('categories.image', $this->imgPath, str_slug($result['data']['categories']['name']), $category->image);
+                    $image = $this->uploadFile('products.image', $this->imgPath, str_slug($result['data']['products']['name']), $products->image);
                     if (!$image) {
-                        $result['data']['categories']['image'] = $params['tmpImage'];
+                        $result['data']['products']['image'] = $params['tmpImage'];
                     } else {
-                        $result['data']['categories']['image'] = $image;
+                        $result['data']['products']['image'] = $image;
                     }
 
-                    if ($this->onStore($category, $result['data']['categories'])) {
+                    if ($this->onStore($products, $result['data']['products'])) {
                         
                         return redirect()->action('\Backend\Controllers\ProductController@index');
                     }
                 }
             }
         }
-        $result['data']['courses'] = $this->allCourse();
-        $result['url'] = \URL::action('\Backend\Controllers\ProductController@edit', $result['data']['categories']['id']);
+       // $result['data']['courses'] = $this->allCourse();
+        $result['url'] = \URL::action('\Backend\Controllers\ProductController@edit', $result['data']['products']['id']);
 
-        return view('Backend::categories.create', $result);
+        return view('Backend::products.create', $result);
     }
 
     /**

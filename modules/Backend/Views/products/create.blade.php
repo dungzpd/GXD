@@ -1,11 +1,11 @@
 @extends('Backend::layouts.default')
 
-@section('title', $isEdit ? Lang::get('products.add') : Lang::get('products.add'))
+@section('title', $isEdit ? Lang::get('products.edit') : Lang::get('products.add'))
 
 @include('Backend::products.scripts')
 
 @section('content')
-   
+{!! Breadcrumbs::render($isEdit ? 'products.edit' : 'products.create') !!}
     <!-- Main content -->
     <section class="content">
         <div class="row">
@@ -57,7 +57,7 @@
                                         </label>
                                         <div class="col-sm-7">
                                             <input type="text" class="form-control" id="product_type" name="products[product_type]"
-                                                   value="{!! $products['products']['product_type'] or '' !!}"
+                                                   value="{!! $data['products']['product_type'] or '' !!}"
                                                    placeholder="@lang('products.product_type')">
                                             @if(!empty($messages) && $messages->has('products.product_type'))
                                                 <span class="help-block">
@@ -76,7 +76,7 @@
                                         </label>
                                         <div class="col-sm-7">
                                             <input type="text" class="form-control" id="name" name="products[name]"
-                                                   value="{!! $products['products']['name'] or '' !!}"
+                                                   value="{!! $data['products']['name'] or '' !!}"
                                                    placeholder="@lang('products.name')">
                                             @if(!empty($messages) && $messages->has('products.name'))
                                                 <span class="help-block">
@@ -104,7 +104,7 @@
                                             (@lang('common.units.vnd'))</label>
                                         <div class="col-sm-7">
                                             <input type="number" class="form-control" id="price" name="products[price]"
-                                                   value="{!! $products['products']['price'] or '' !!}"
+                                                   value="{!! $data['products']['price'] or '' !!}"
                                                    placeholder="@lang('products.price')">
                                             @if(!empty($messages) && $messages->has('products.price'))
                                                 <span class="help-block">

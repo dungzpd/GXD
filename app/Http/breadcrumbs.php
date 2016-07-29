@@ -26,6 +26,21 @@ Breadcrumbs::register('categories.edit', function($breadcrumbs) {
     $breadcrumbs->parent('categories');
     $breadcrumbs->push(Lang::get('common.edit'), URL::action('\Backend\Controllers\CategoriesController@edit', null));
 });
+// Admin > Products
+Breadcrumbs::register('products', function($breadcrumbs) {
+    $breadcrumbs->parent('admin');
+    $breadcrumbs->push(Lang::get('products.products'), URL::action('\Backend\Controllers\ProductController@index'));
+});
+// Admin > Products > Create
+Breadcrumbs::register('products.create', function($breadcrumbs) {
+    $breadcrumbs->parent('products');
+    $breadcrumbs->push(Lang::get('common.add'), URL::action('\Backend\Controllers\ProductController@create'));
+});
+// Admin > Products > Edit
+Breadcrumbs::register('products.edit', function($breadcrumbs) {
+    $breadcrumbs->parent('products');
+    $breadcrumbs->push(Lang::get('common.edit'), URL::action('\Backend\Controllers\ProductController@edit', null));
+});
 
 // Admin > Courses
 Breadcrumbs::register('courses', function($breadcrumbs) {
