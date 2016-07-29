@@ -21,9 +21,7 @@ use Alloy\Models\Users;
 use Auth;
 use Lang;
 use DB;
-use Alloy\Models\Exams;
-use Alloy\Models\Lessons;
-use Alloy\Validations\CategoriesValidate;
+use Alloy\Models\Products;
 use Alloy\Facades\Run;
 
 use Illuminate\Http\Request;
@@ -52,6 +50,23 @@ class KeyController extends BaseController
      */
     public function index()
     {
+        $field = Input::get('field');
+        $sort = Input::get('sort');
+        $keyword = Input::get('keyword');
+        $category = Input::get('category');
+
+//        $list = Courses::getList(array('by' => $field, 'is' => $sort), array('fields' => ['name', 'price'], 'value' => $keyword))->where('author_id', '=', $this->currentUser->id);
+//        if (!empty($category)) {
+//            $list = $list->whereHas('products', function ($query) use ($category) {
+//                $query->where('category_id', $category);
+//            });
+//        }
+
+        //$list = $list->paginate($this->perPage)->appends(Input::only('field', 'keyword', 'sort'));
+        $products = Products::where('name', 'product_type', 'id')->orderBy('id', 'ASC')->get();
+        
+            die($products->count());
+        return view('Backend::keys.index', compact('list', 'sort', 'keyword', 'field', 'category', 'products'));
     }
 
     /**

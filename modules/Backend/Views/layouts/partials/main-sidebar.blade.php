@@ -140,12 +140,32 @@
                     </li>
                 </ul>
             </li>
-
             <!--End Products-->
-            <li class="treeview
-            @if (in_array(\Request::url(), [URL::action('\Backend\Controllers\LessonsController@index'), URL::action('\Backend\Controllers\LessonsController@create')]))
+                        
+            <!--VA add KEY-->
+                <li class="treeview
+            @if (in_array(\Request::url(), [URL::action('\Backend\Controllers\CategoriesController@index')]))
                 {!! 'active' !!}
             @endif">
+                <a href="#">
+                    <i class="glyphicon glyphicon-lock"></i>
+                    <span>@lang('key.key')</span> 
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li>
+                        <a href="{!! URL::action('\Backend\Controllers\KeyController@index') !!}">
+                            <i class="fa fa-circle-o"></i>
+                            @lang('key.keys')
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- End Key -->
+            <li class="treeview
+                    @if (in_array(\Request::url(), [URL::action('\Backend\Controllers\LessonsController@index'), URL::action('\Backend\Controllers\LessonsController@create')]))
+                        {!! 'active' !!}
+                    @endif">
                 <a href=#>
                     <i class="fa fa-clipboard"></i>
                     <span>@lang('lesson.lesson')</span> 
