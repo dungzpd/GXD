@@ -16,14 +16,14 @@ class Products extends Base {
      * @var string
      */
     protected $table = 'products';
-    public $timestamps = false;
+    //public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = ['id', 'name', 'price', 'icon',
-        'description', 'id_email', 'status',  'product_type'];
+        'description', 'id_email', 'status',  'product_type', 'created_at', 'updated_at', 'deleted_at'];
 
     
 
