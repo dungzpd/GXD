@@ -51,10 +51,10 @@ class ProductController extends BaseController
         $field = Input::get('field');
         $sort = Input::get('sort');
         $keyword = Input::get('keyword');
-
+//die();
         $products = Products::getList(array('by' => $field, 'is' => $sort), array('fields' => ['name', 'description'], 'value' => $keyword))
             ->paginate($this->perPage)->appends(Input::only('field', 'keyword', 'sort'));
-
+            die();
         return view('Backend::products.index', compact('products', 'keyword', 'field', 'sort'));
     }
 
