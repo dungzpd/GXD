@@ -22,6 +22,7 @@ use Auth;
 use Lang;
 use DB;
 use Alloy\Models\Products;
+//use Alloy\Models\Courses;
 use Alloy\Models\Keys;
 use Alloy\Facades\Run;
 use Illuminate\Support\Collection;
@@ -57,8 +58,16 @@ class KeyController extends BaseController
         $keyword = Input::get('keyword');
         
       
-         //$products = Products::select('name','id')->get()->toArray();
-         $products = DB::table('products')->select('id','name')->get();
+         
+
+//die($products->count());
+            $products = Products::select('id', 'name')
+            ->get();
+           // die($products->count());
+            //$products = Products::find(15);
+//if($products) echo('abcd');
+//else echo 'aaaaa';
+        // $products = DB::table('products')->select('id','name')->get();
 //         foreach ($products as $x) {
 //                    echo $x->name.'</br>';
 //                }
