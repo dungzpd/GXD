@@ -64,6 +64,7 @@ class KeyController extends BaseController
 //                }
                 //echo $products->count();
           //  die();
+        $keys = Categories::getList(array('by' => $field, 'is' => $sort), array('fields' => ['name', 'description'], 'value' => $keyword));
         return view('Backend::keys.index', compact('list', 'sort', 'keyword', 'field', 'category', 'products'));
     }
 

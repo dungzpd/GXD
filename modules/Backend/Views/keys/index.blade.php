@@ -42,7 +42,35 @@
                     <!-- /.box-tools -->
                 </div>
                 <!-- /.box-header -->
- 
+                
+                <div class="table-list overflow-hidden">
+                    <!-- .header-list -->
+			<div class="row-group header-list">
+			    <div class="row item">
+				<div class="col-md-12">
+				    <div class="col-md-1 padding-left-5">
+					<button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
+				    </div>
+				    <div class="col-md-4">
+					@lang('key.name')
+				    </div>
+				    <div class="col-md-3">
+					@lang('key.date')
+				    </div>
+				    <div class="col-md-2">
+					@lang('key.com')
+				    </div>
+				   
+				    <div class="col-md-2">
+					@lang('key.com_1')
+				    </div> 
+				</div>
+			    </div>
+			</div>
+			<!-- /.header-list -->
+                    
+                </div>
+                
             </div>
             <!-- /. box -->
         </div>
