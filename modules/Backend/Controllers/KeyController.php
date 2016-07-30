@@ -22,8 +22,10 @@ use Auth;
 use Lang;
 use DB;
 use Alloy\Models\Products;
+use Alloy\Models\Keys;
 use Alloy\Facades\Run;
-
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
@@ -53,19 +55,15 @@ class KeyController extends BaseController
         $field = Input::get('field');
         $sort = Input::get('sort');
         $keyword = Input::get('keyword');
-        $category = Input::get('category');
-
-//        $list = Courses::getList(array('by' => $field, 'is' => $sort), array('fields' => ['name', 'price'], 'value' => $keyword))->where('author_id', '=', $this->currentUser->id);
-//        if (!empty($category)) {
-//            $list = $list->whereHas('products', function ($query) use ($category) {
-//                $query->where('category_id', $category);
-//            });
-//        }
-
-        //$list = $list->paginate($this->perPage)->appends(Input::only('field', 'keyword', 'sort'));
-        $products = Products::where('name', 'product_type', 'id')->orderBy('id', 'ASC')->get();
         
-            die($products->count());
+      
+         //$products = Products::select('name','id')->get()->toArray();
+         $products = DB::table('products')->select('id','name')->get();
+//         foreach ($products as $x) {
+//                    echo $x->name.'</br>';
+//                }
+                //echo $products->count();
+          //  die();
         return view('Backend::keys.index', compact('list', 'sort', 'keyword', 'field', 'category', 'products'));
     }
 

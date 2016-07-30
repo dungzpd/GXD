@@ -25,7 +25,7 @@
                                                     <option value="{!! $c->id !!}"
                                                             @if (isset($product) && ($product == $c->id))
                                                             selected="selected"
-                                                            @endif{!! $c->name !!}</option>
+                                                            @endif>{!! $c->name !!}</option>
                                                 @endforeach
                                             </select>
                                         </div>
