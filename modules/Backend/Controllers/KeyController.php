@@ -56,25 +56,10 @@ class KeyController extends BaseController
         $field = Input::get('field');
         $sort = Input::get('sort');
         $keyword = Input::get('keyword');
+        $products = Products::select('id', 'name')->get();
+        $keys = Keys::listkey();
         
-      
-         
-
-//die($products->count());
-            $products = Products::select('id', 'name')
-            ->get();
-           // die($products->count());
-            //$products = Products::find(15);
-//if($products) echo('abcd');
-//else echo 'aaaaa';
-        // $products = DB::table('products')->select('id','name')->get();
-//         foreach ($products as $x) {
-//                    echo $x->name.'</br>';
-//                }
-                //echo $products->count();
-          //  die();
-        //$keys = Categories::getList(array('by' => $field, 'is' => $sort), array('fields' => ['name', 'description'], 'value' => $keyword));
-        return view('Backend::keys.index', compact('list', 'sort', 'keyword', 'field', 'category', 'products'));
+        return view('Backend::keys.index', compact('list', 'keys', 'keyword', 'field', 'category', 'products'));
     }
 
     /**

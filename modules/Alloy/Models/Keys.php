@@ -1,7 +1,7 @@
 <?php
 
 namespace Alloy\Models;
-
+use DB;
 use Alloy\Models\Base;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -29,6 +29,11 @@ class Keys extends Base {
      * Get the teacher.
      * belong to
      */
-   
+    public static function listkey()
+    {
+        $key = DB::table('tblkeys')->get();;
+        //$key = Keys::select()->get()->count();
+        return $key;
+    }
 
 }
