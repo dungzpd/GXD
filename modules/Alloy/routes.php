@@ -126,6 +126,7 @@ Route::group(['prefix' => 'admin'], function () {
                 
                 //VA add
                 Route::get('/key', 'Backend\Controllers\KeyController@index');
+                Route::get('/key/edit/{id}', 'Backend\Controllers\KeyController@edit');
         });
 });
 

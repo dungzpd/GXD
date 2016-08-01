@@ -19,7 +19,13 @@
                             @if (!empty($products))
                                 <div class="has-feedback">
                                     <div class="col-sm-12">
-                                        <div class="col-sm-6 no-padding">
+                                        <div class="col-sm-4 no-padding">
+                                            <select name="status" class="form-control  input-sm">
+                                                <option value="1">Key thương mại</option>
+                                                <option value="0">Key dùng thử</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4 no-padding">
                                             <select name="category" class="form-control  input-sm">
                                                 @foreach($products as $c)
                                                     <option value="{!! $c->id !!}"
@@ -29,7 +35,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-sm-6 no-padding">
+                                        <div class="col-sm-4 no-padding">
                                             <input type="text" class="form-control input-sm" name="keyword" placeholder="@lang('courses.search')" value="{!! isset($keyword) ? $keyword : '' !!}">
                                             <span class="glyphicon glyphicon-search form-control-feedback"></span>
                                         </div>
@@ -51,10 +57,10 @@
 				    <div class="col-md-1 padding-left-5">
 					<button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
 				    </div>
-				    <div class="col-md-4">
+				    <div class="col-md-3">
 					@lang('key.name')
 				    </div>
-				    <div class="col-md-3">
+				    <div class="col-md-2">
 					@lang('key.date')
 				    </div>
 				    <div class="col-md-2">
@@ -63,6 +69,9 @@
 				   
 				    <div class="col-md-2">
 					@lang('key.com')
+				    </div> 
+                                     <div class="col-md-2">
+					@lang('key.function')
 				    </div> 
 				</div>
 			    </div>
@@ -81,10 +90,10 @@
                                                             data-increase-area="20%"
                                                             value="{!! $key->id !!}">
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <a href="{!! URL::action('\Backend\Controllers\CategoriesController@edit', array('id' => $key->id))!!}">{!! $key->license_serial !!}</a>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             {!! $key->type_expire_date !!}
                                         </div>
                                         <div class="col-md-2">
@@ -93,7 +102,22 @@
                                         <div class="col-md-2">
                                             {!! $key->license_no_computers !!}
                                         </div>
-                                        
+                                       
+                                        <div class="col-md-2">
+                                        <a href="{!! URL::action('\Backend\Controllers\KeyController@edit', array('id' => $key->id)) !!}"
+										   init="tooltip"
+										   title="@lang('common.edit')"
+										   class="btn btn-success btn-sm">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <button init="tooltip"
+												title="@lang('common.delete')"
+                                            class="btn btn-danger btn-sm"
+                                            data-toggle="modal" data-target="#modal-delete-{!! $key->id !!}">
+                                            <i class="fa fa-trash"></i>  
+                                        </button>
+
+                                    </div> 
                                     </div>
                                 </div>
                                 @endforeach

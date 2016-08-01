@@ -61,7 +61,9 @@ class KeyController extends BaseController
 
         return view('Backend::keys.index', compact('list', 'keys', 'keyword', 'field', 'category', 'products'));
     }
-
+    public function edit(){
+        return 'Đây là trang edit';
+    }
     /**
      * Save score when the user complete the exams.
      *

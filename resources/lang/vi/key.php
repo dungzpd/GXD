@@ -8,5 +8,5 @@ return [
     'date' => 'Thời hạn',
     'com'=>'Số máy dùng',
     'com_1'=>'Máy đã dùng',
-    
+    'function'=>'Chức năng'
 ];
