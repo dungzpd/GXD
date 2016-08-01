@@ -16,7 +16,7 @@ class Keys extends Base {
      * @var string
      */
     protected $table = 'tblkeys';
-
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *
@@ -31,8 +31,8 @@ class Keys extends Base {
      */
     public static function listkey()
     {
-        $key = DB::table('tblkeys')->get();;
-        //$key = Keys::select()->get()->count();
+        //$key = DB::table('tblkeys')->get();
+        $key = Keys::select()->get();
         return $key;
     }
 

@@ -58,17 +58,49 @@
 					@lang('key.date')
 				    </div>
 				    <div class="col-md-2">
-					@lang('key.com')
+					@lang('key.com_1')
 				    </div>
 				   
 				    <div class="col-md-2">
-					@lang('key.com_1')
+					@lang('key.com')
 				    </div> 
 				</div>
 			    </div>
 			</div>
 			<!-- /.header-list -->
-                    
+                        <!-- .content-list -->
+                            <div class="row-group content-list">
+                                @if(!empty($keys) && $keys->count() > 0)
+                                @foreach($keys as $key)
+                                <div class="row item">
+                                    <div class="col-md-12">
+                                        <div class="col-md-1 padding-left-10">
+                                            <input type="checkbox" 
+                                                    init="iCheck"
+                                                            data-icheck-class="icheckbox_flat-blue"
+                                                            data-increase-area="20%"
+                                                            value="{!! $key->id !!}">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <a href="{!! URL::action('\Backend\Controllers\CategoriesController@edit', array('id' => $key->id))!!}">{!! $key->license_serial !!}</a>
+                                        </div>
+                                        <div class="col-md-3">
+                                            {!! $key->type_expire_date !!}
+                                        </div>
+                                        <div class="col-md-2">
+                                            {!! $key->license_is_registered !!}
+                                        </div>
+                                        <div class="col-md-2">
+                                            {!! $key->license_no_computers !!}
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                @endforeach
+
+                                @endif
+                            </div>
+                            <!-- /.content-list -->                                      
                 </div>
                 
             </div>

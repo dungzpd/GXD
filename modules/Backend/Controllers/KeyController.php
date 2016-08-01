@@ -58,7 +58,7 @@ class KeyController extends BaseController
         $keyword = Input::get('keyword');
         $products = Products::select('id', 'name')->get();
         $keys = Keys::listkey();
-        
+
         return view('Backend::keys.index', compact('list', 'keys', 'keyword', 'field', 'category', 'products'));
     }
 
