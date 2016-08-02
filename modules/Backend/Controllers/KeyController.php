@@ -53,12 +53,13 @@ class KeyController extends BaseController
      */
     public function index()
     {
-        $field = Input::get('field');
-        $sort = Input::get('sort');
-        $keyword = Input::get('keyword');
-        $products = Products::select('id', 'name')->get();
-        $keys = Keys::listkey();
-
+        $status = Input::get('status');
+        $product_id = Input::get('product');
+        $product = Products::select('product_type')->where(['id'=>$product_id])->get();
+        if(!empty($product)&&!empty($status)){
+            $keys = Keys::listkey($status,$product);
+        }else $keys = Keys::select()->get();
+        $products = Products::select('id','name')->get();
         return view('Backend::keys.index', compact('list', 'keys', 'keyword', 'field', 'category', 'products'));
     }
     public function edit(){

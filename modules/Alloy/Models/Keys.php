@@ -29,10 +29,12 @@ class Keys extends Base {
      * Get the teacher.
      * belong to
      */
-    public static function listkey()
+    public static function listkey($status,$product)
     {
         //$key = DB::table('tblkeys')->get();
-        $key = Keys::select()->get();
+        $key = Keys::where(['status'=>$status])->where(['product_type'=>$product])->get();       
+        echo $key;
+        die();
         return $key;
     }
 

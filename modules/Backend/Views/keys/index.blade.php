@@ -7,6 +7,8 @@
 {!! Breadcrumbs::render('courses') !!}
 
 <div class="content">
+   <form action="{!! URL::action('\Backend\Controllers\KeyController@index') !!}" method="get">
+     {!! csrf_field(csrf_token()) !!}  
     <div class="row">
         <!-- /.col -->
         <div class="col-md-12">
@@ -15,18 +17,19 @@
                     <h3 class="box-title">@lang('key.product')</h3>
 
                     <div class="box-tools pull-right">
-                        <form action="{!! URL::action('\Backend\Controllers\CourseController@index') !!}" method="get">
+                       
+                          
                             @if (!empty($products))
                                 <div class="has-feedback">
                                     <div class="col-sm-12">
-                                        <div class="col-sm-4 no-padding">
+                                        <div class="col-sm-5 no-padding">
                                             <select name="status" class="form-control  input-sm">
                                                 <option value="1">Key thương mại</option>
                                                 <option value="0">Key dùng thử</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-4 no-padding">
-                                            <select name="category" class="form-control  input-sm">
+                                            <select name="product" class="form-control  input-sm">
                                                 @foreach($products as $c)
                                                     <option value="{!! $c->id !!}"
                                                             @if (isset($product) && ($product == $c->id))
@@ -34,16 +37,17 @@
                                                             @endif>{!! $c->name !!}</option>
                                                 @endforeach
                                             </select>
+
                                         </div>
-                                        <div class="col-sm-4 no-padding">
-                                            <input type="text" class="form-control input-sm" name="keyword" placeholder="@lang('courses.search')" value="{!! isset($keyword) ? $keyword : '' !!}">
-                                            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                                        <div class="col-sm-2 no-padding">
+                                            <input type="submit" name="submit" value="@lang('key.search')">
+<!--                                            <span class="glyphicon glyphicon-search form-control-feedback"></span>-->
                                         </div>
                                     </div>
                             @endif
 
                             </div>
-                        </form>                        
+                                              
                     </div>
                     <!-- /.box-tools -->
                 </div>
@@ -130,6 +134,7 @@
             </div>
             <!-- /. box -->
         </div>
+    </form>  
         <!-- /.col -->
     </div>
 </div>
