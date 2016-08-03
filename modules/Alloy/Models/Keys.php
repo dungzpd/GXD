@@ -32,9 +32,11 @@ class Keys extends Base {
     public static function listkey($status,$product)
     {
         //$key = DB::table('tblkeys')->get();
-        $key = Keys::where(['status'=>$status])->where(['product_type'=>$product])->get();       
-        echo $key;
-        die();
+        foreach($product as $item){
+            $product_type = $item->product_type;
+        }
+        
+        $key = Keys::where('status',$status)->where('product_type',$product_type)->get();       
         return $key;
     }
 

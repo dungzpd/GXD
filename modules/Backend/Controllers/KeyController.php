@@ -56,7 +56,7 @@ class KeyController extends BaseController
         $status = Input::get('status');
         $product_id = Input::get('product');
         $product = Products::select('product_type')->where(['id'=>$product_id])->get();
-        if(!empty($product)&&!empty($status)){
+        if((!empty($status) || $status == '0') && !empty($product) ){
             $keys = Keys::listkey($status,$product);
         }else $keys = Keys::select()->get();
         $products = Products::select('id','name')->get();
