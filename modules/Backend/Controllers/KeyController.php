@@ -67,13 +67,6 @@ class KeyController extends BaseController
     public function edit(){
         return 'Đây là trang edit';
     }
-    /**
-     * Save score when the user complete the exams.
-     *
-     * @method POST
-     * @param Request $request
-     * return view
-     */
-    
+
 }
 

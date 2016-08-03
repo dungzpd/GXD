@@ -98,6 +98,15 @@ Route::group(['prefix' => 'admin'], function () {
                 Route::any('/courses/delete/{id}', 'Backend\Controllers\CourseController@delete');
                  Route::any('/courses/deleteMultiple', 'Backend\Controllers\CourseController@deleteMultiple');
 // Phan Dung add
+//  Customers
+                Route::any('/customers','Backend\Controllers\CustomersController@index');
+                
+                Route::any('/customers/deleteMultiple', 'Backend\Controllers\CustomersController@deleteMultiple');
+                Route::any('/customers/status/{id}', 'Backend\Controllers\CustomersController@status');
+                Route::any('/customers/edit/{id}', 'Backend\Controllers\CustomersController@edit');
+                Route::any('/customers/delete/{id}', 'Backend\Controllers\CustomersController@delete');
+                Route::any('/customers/create', 'Backend\Controllers\CustomersController@create');
+                 // Products
                 Route::any('/products','Backend\Controllers\ProductController@index');
                 Route::any('/products/create', 'Backend\Controllers\ProductController@create');
                 Route::any('/products/status/{id}', 'Backend\Controllers\ProductController@status');
@@ -126,7 +135,6 @@ Route::group(['prefix' => 'admin'], function () {
                 
                 //VA add
                 Route::get('/key', 'Backend\Controllers\KeyController@index');
-                Route::get('/key/edit/{id}', 'Backend\Controllers\KeyController@edit');
         });
 });
 
