@@ -59,8 +59,10 @@ class KeyController extends BaseController
         if((!empty($status) || $status == '0') && !empty($product) ){
             $keys = Keys::listkey($status,$product);
         }else $keys = Keys::select()->get();
+        
         $products = Products::select('id','name')->get();
-        return view('Backend::keys.index', compact('list', 'keys', 'keyword', 'field', 'category', 'products'));
+        
+        return view('Backend::keys.index', compact('list', 'keys', 'keyword', 'products', 'product_id', 'status'));
     }
     public function edit(){
         return 'Đây là trang edit';

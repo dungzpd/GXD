@@ -10,4 +10,6 @@ return [
     'com_1'=>'Máy đã dùng',
     'function'=>'Chức năng',
     'search'=>'Tìm kiếm',
+    'try'=>'Key dùng thử',
+    'sale'=>'Key thương mại',
 ];
