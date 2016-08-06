@@ -15,7 +15,7 @@
                     <h3 class="box-title">@lang('key.product')</h3>
 
                     <div class="box-tools pull-right">
-                        <form action="{!! URL::action('\Backend\Controllers\CourseController@index') !!}" method="get">
+                        <form action="{!! URL::action('\Backend\Controllers\KeyController@index') !!}" method="get">
                             @if (!empty($products))
                                 <div class="has-feedback">
                                     <div class="col-sm-12">
@@ -29,7 +29,7 @@
                                                             @endif value="0">@lang('key.try')</option>
                                             </select>
                                         </div>
-                                        <div class="col-sm-4 no-padding">
+                                        <div class="col-sm-5 no-padding">
                                             <select name="product" class="form-control  input-sm">
                                                 @foreach($products as $c)
                                                     <option value="{!! $c->id !!}"
@@ -39,9 +39,9 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-sm-6 no-padding">
-                                            <input type="text" class="form-control input-sm" name="keyword" placeholder="@lang('courses.search')" value="{!! isset($keyword) ? $keyword : '' !!}">
-                                            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                                        <div class="col-sm-2 no-padding">
+                                            <input type="submit" name="@lang('key.search')" value="@lang('key.search')">
+                                            
                                         </div>
                                     </div>
                             @endif
@@ -80,6 +80,7 @@
 			<!-- /.header-list -->
                     
                 </div>
+                
                 
             </div>
             <!-- /. box -->
