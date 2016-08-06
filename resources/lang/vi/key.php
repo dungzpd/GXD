@@ -13,4 +13,5 @@ return [
     'try'=>'Key dùng thử',
     'sale'=>'Key thương mại',
     'function'=>'Chức năng'
+    
 ];
