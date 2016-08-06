@@ -21,19 +21,15 @@
                                     <div class="col-sm-12">
                                         <div class="col-sm-5 no-padding">
                                             <select name="status" class="form-control  input-sm">
-                                                <option @if (isset($status) && ($status == 1))
-                                                            selected="selected"
-                                                            @endif value="1">@lang('key.sale')</option>
-                                                <option @if (isset($status) && ($status == 0))
-                                                            selected="selected"
-                                                            @endif value="0">@lang('key.try')</option>
+                                                <option value="1">Key thương mại</option>
+                                                <option value="0">Key dùng thử</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-5 no-padding">
                                             <select name="product" class="form-control  input-sm">
                                                 @foreach($products as $c)
                                                     <option value="{!! $c->id !!}"
-                                                            @if (isset($product_id) && ($product_id == $c->id))
+                                                            @if (isset($product) && ($product == $c->id))
                                                             selected="selected"
                                                             @endif>{!! $c->name !!}</option>
                                                 @endforeach
