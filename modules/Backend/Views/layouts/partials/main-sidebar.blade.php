@@ -14,7 +14,7 @@
                 @endif
             </div>
             <div class="pull-left info">
-                <p>{!! $auth->name !!}</p>
+                <p>{!! $auth->username !!}</p>
                 <!-- Status -->
                 <a href="#"><i class="fa fa-circle text-success"></i> {!! Alloy\Facades\Translation::En('Online') !!}</a>
             </div>
@@ -41,6 +41,7 @@
                     @lang('common.home')
                 </a>
             </li>
+            @if( 1 == $auth->role_id)
             <!-- Optionally, you can add icons to the links -->
             <li class="treeview
             @if (in_array(\Request::url(), [URL::action('\Backend\Controllers\UserController@index'), URL::action('\Backend\Controllers\UserController@create'),]))
@@ -67,6 +68,9 @@
                     </li>
                 </ul>
             </li>
+            @endif
+
+            @if( 1 == $auth->role_id)
             <li class="treeview
             @if (in_array(\Request::url(), [URL::action('\Backend\Controllers\CategoriesController@index'), URL::action('\Backend\Controllers\CategoriesController@create')]))
                 {!! 'active' !!}
@@ -91,6 +95,8 @@
                     </li>
                 </ul>
             </li>
+            @endif
+            @if( 1 == $auth->role_id)
             <li class="treeview
             @if (in_array(\Request::url(), [URL::action('\Backend\Controllers\CourseController@index'), URL::action('\Backend\Controllers\CourseController@create')]))
                 {!! 'active' !!}
@@ -115,7 +121,9 @@
                     </li>
                 </ul>
             </li>
-            <!--Phan Dung add Products-->
+            
+            <!--End Products-->
+            @endif
             <!--Customer-->
             <li class="treeview
             @if (in_array(\Request::url(), [URL::action('\Backend\Controllers\CustomersController@index'), URL::action('\Backend\Controllers\CustomersController@create')]))
@@ -137,6 +145,7 @@
                 </ul>
             </li>
             <!--End Customer-->
+             @if( 1 == $auth->role_id) 
             <!--Products-->
             <li class="treeview
             @if (in_array(\Request::url(), [URL::action('\Backend\Controllers\ProductController@index'), URL::action('\Backend\Controllers\ProductController@create')]))
@@ -163,7 +172,8 @@
                 </ul>
             </li>
             <!--End Products-->
-                        
+            @endif
+            @if( 1 == $auth->role_id)            
             <!--VA add KEY-->
                 <li class="treeview
             @if (in_array(\Request::url(), [URL::action('\Backend\Controllers\CategoriesController@index')]))
@@ -184,6 +194,8 @@
                 </ul>
             </li>
             <!-- End Key -->
+            @endif
+            @if( 1 == $auth->role_id)
             <li class="treeview
                     @if (in_array(\Request::url(), [URL::action('\Backend\Controllers\LessonsController@index'), URL::action('\Backend\Controllers\LessonsController@create')]))
                         {!! 'active' !!}
@@ -208,6 +220,8 @@
                     </li>
                 </ul>
             </li>  
+            @endif
+            @if( 1 == $auth->role_id)
             <li class="treeview
             @if (in_array(\Request::url(), [URL::action('\Backend\Controllers\QuestionController@index'), URL::action('\Backend\Controllers\QuestionController@create')]))
                 {!! 'active' !!}
@@ -231,7 +245,8 @@
                         </a>
                     </li>
                 </ul>
-            </li>      
+            </li>   
+            @endif   
         </ul>
         <!-- /.sidebar-menu -->
     </section>

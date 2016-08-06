@@ -3,6 +3,7 @@
 return [
     'customers' => 'Khách hàng',
     'searchCategories' => 'Tìm kiếm danh mục khóa học',
+    'accountCreate' => 'Tạo khách hàng',
     'enterInfo' => 'Nhập thông tin danh mục khóa học',
     'infoCate' => 'Thông tin danh mục',
     'list' => 'Danh sách khách hàng',

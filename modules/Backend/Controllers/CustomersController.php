@@ -21,15 +21,11 @@ class CustomersController extends BaseController {
     public function __construct() {        
         parent::__construct();
         
-        $this->middleware('admin:admin/sale_lead/teacher_internal/teacher_external/staff');
-        
+        $this->middleware('admin:admin/sale_lead/sale');
+
         $this->currentUser = Auth::user();
-        //$this->currentUser = "user";
-        //echo $this->currentUser->role->name;
         $this->currentFilterRoles = $this->filterRoles($this->currentUser->role->name);
         $this->currentFilterRoleIds = $this->filterRoles($this->currentUser->role->name, 'id');
-       // $this->currentFilterRoleIds = $this->filterRoles("user", 'id');
-        print_r($this->currentFilterRoleIds);
     }
 
     public function index() {      
@@ -47,7 +43,7 @@ class CustomersController extends BaseController {
             $users = $users->orderBy($col, $sort)->paginate($this->perPage);
         }
         
-        die();
+        
         if(isset($keyword)) {
             $users = Users::where('id', '!=', $this->currentUser->id)
                     ->whereIn('role_id', $this->currentFilterRoleIds)                                      
@@ -64,7 +60,24 @@ class CustomersController extends BaseController {
         
         return view('Backend::customers.index', compact('users', 'keyword', 'field', 'sort'));
     }
-    
+    public function create(Request $request) {
+        $result = array('status' => false, 'action' => 'create', 'title' => 'customers.accountCreate', 'breadcrumbs' => 'account.create', 'actionForm' => URL::action('\Backend\Controllers\CustomersController@create'), 'data' => '', 'messages' => array('success' => '', 'errors' => ''));
+        if ($request->isMethod('POST')) {
+            $params = Input::all();
+            $result = $this->doCreate($params, $result);
+            if($result['status'] !== false) {
+                if (isset($params['saveAndCreate'])) {
+                    return redirect()->action('\Backend\Controllers\CustomersController@create');
+                }
+                return redirect()->action('\Backend\Controllers\CustomersController@index');
+            }            
+        }
+                       
+        $result['roles'] = $this->currentFilterRoles;
+        $result['isEdit'] = false;
+        
+        return view('Backend::customers.form', $result);
+    }
    
 
     protected function doCreate($data, $result) {               
@@ -113,15 +126,15 @@ class CustomersController extends BaseController {
     
     public function edit($id, Request $request) {
         if(!$id) {
-            return redirect()->action('\Backend\Controllers\UserController@index');
+            return redirect()->action('\Backend\Controllers\CustomersController@index');
         }
         
         $user = Users::find($id);
         if(!$user) {
-            return redirect()->action('\Backend\Controllers\UserController@index');
+            return redirect()->action('\Backend\Controllers\CustomersController@index');
         }
         
-        $result = array('status' => false, 'data' => $user, 'action' => 'edit', 'title' => 'user.accountEdit', 'breadcrumbs' => 'account.edit', 'actionForm' => URL::action('\Backend\Controllers\UserController@edit', array('id' => $id)), 'messages' => array('success' => '', 'errors' => ''));
+        $result = array('status' => false, 'data' => $user, 'action' => 'edit', 'title' => 'user.accountEdit', 'breadcrumbs' => 'account.edit', 'actionForm' => URL::action('\Backend\Controllers\CustomersController@edit', array('id' => $id)), 'messages' => array('success' => '', 'errors' => ''));
         if ($request->isMethod('POST')) {
             $result = $this->doEdit(Input::all(), $user, $result);          
         }
@@ -173,7 +186,7 @@ class CustomersController extends BaseController {
             }
         }
         
-        return redirect()->action('\Backend\Controllers\UserController@index', ['page' => $currentPage]);
+        return redirect()->action('\Backend\Controllers\CustomersController@index', ['page' => $currentPage]);
     }
     
     public function status($id) {
@@ -185,7 +198,7 @@ class CustomersController extends BaseController {
             }
         }
         
-        return redirect()->action('\Backend\Controllers\UserController@index');
+        return redirect()->action('\Backend\Controllers\CustomersController@index');
     }
     
 }
