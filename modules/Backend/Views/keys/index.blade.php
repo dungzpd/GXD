@@ -57,10 +57,10 @@
 				    <div class="col-md-1 padding-left-5">
 					<button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
 				    </div>
-				    <div class="col-md-4">
+				    <div class="col-md-3">
 					@lang('key.name')
 				    </div>
-				    <div class="col-md-3">
+				    <div class="col-md-2">
 					@lang('key.date')
 				    </div>
 				    <div class="col-md-2">
@@ -70,6 +70,9 @@
 				    <div class="col-md-2">
 					@lang('key.com_1')
 				    </div> 
+                                    <div class="col-md-2">
+					
+				    </div> 
 				</div>
 			    </div>
 			</div>
@@ -77,7 +80,52 @@
                     
                 </div>
                 
-                
+                <div class="row-group content-list">
+                            @if(!empty($keys)) 
+                                @foreach($keys as $item)
+                                <div class="row item">
+                                    <div class="col-md-12">
+                                        <div class="col-md-1 padding-left-10">
+                                            <input type="checkbox"
+                                                init="iCheck"
+                                                data-icheck-class="icheckbox_flat-blue"
+                                                data-increase-area="20%">                                                
+                                        </div>
+                                        <div class="col-md-3">
+                                            <a href="{!! URL::action('\Backend\Controllers\CourseController@edit', array('id' => $item->id))!!}">
+                                                {!! $item->license_key !!}                               
+                                            </a>
+                                        </div> 
+                                        <div class="col-md-2">
+                                            <a href="{!! URL::action('\Backend\Controllers\CourseController@edit', array('id' => $item->id))!!}">
+                                                {!! $item->type_expire_date !!}                               
+                                            </a>
+                                        </div>                                            
+                                        <div class="col-md-2">
+                                            {!! $item->license_is_registered !!}                                
+                                        </div>
+                                        <div class="col-md-2">
+                                            {!! $item->license_no_instance !!}                           
+                                        </div>
+                                        <div class="col-md-2">
+                                            
+                                            <a href="{!! URL::action('\Backend\Controllers\CourseController@edit', array('id' => $item->id)) !!}">
+                                                <button type="button" init="tooltip"
+                                                        title="@lang('common.edit')"
+                                                        class="btn btn-success btn-sm"><i class="fa fa-edit"></i></button>
+                                            </a>
+                                            <a>
+                                                <button type="button"
+                                                        init="tooltip"
+                                                        title="@lang('common.delete')"
+                                                        class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                            </a>                          
+                                        </div> 
+                                    </div>
+                                </div>  
+                                @endforeach
+                            @endif
+                        </div>
             </div>
             <!-- /. box -->
         </div>
