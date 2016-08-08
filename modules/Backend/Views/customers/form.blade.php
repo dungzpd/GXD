@@ -8,13 +8,13 @@
 <!-- Main content -->
 <section class="content">
     <div class="row">
-        <form action="{!! $actionForm !!}" method="post" enctype="multipart/form-data"> 
+        <form action="" method="post" enctype="multipart/form-data"> 
             {!! csrf_field(csrf_token()) !!}  
             <!-- /.col -->
             <div class="col-md-12">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">@lang('user.enterInfo')</h3>                   
+                        <h3 class="box-title">@lang('customers.enterInfo')</h3>                   
                         <!-- /.box-tools -->
                     </div>
                     <!-- /.box-header -->
@@ -46,7 +46,7 @@
                                     @endif
                                     <div class="form-group">
                                         <label for="username" class="col-sm-4 control-label">
-                                            @lang('user.username')
+                                            @lang('customers.username')
                                             <i class="fa fa-asterisk color-red font-size-7"></i>                                          
                                         </label>
                                         <div class="col-sm-5">
@@ -63,7 +63,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="email" class="col-sm-4 control-label">
-                                            @lang('user.email')
+                                            @lang('customers.email')
                                             <i class="fa fa-asterisk color-red font-size-7"></i>   
                                         </label>
                                         <div class="col-sm-5">                                            
@@ -81,24 +81,24 @@
                                     @if($action !== "edit")
                                     <div class="form-group">
                                         <label for="password" class="col-sm-4 control-label">
-                                            @lang('user.password')
+                                            @lang('customers.phone')
                                             <i class="fa fa-asterisk color-red font-size-7"></i>   
                                         </label>
                                         <div class="col-sm-5">
-                                            <input type="password" class="form-control" id="password" name="password" placeholder="@lang('user.password')">
+                                            <input type="text" class="form-control" id="password" name="phone" placeholder="@lang('customers.phone')">
                                             
-                                            @if(isset($messages['errors']['password']))
-                                                <span class="help-block color-red font-size-13"><i class="fa fa-times-circle-o margin-right-5"></i>{!! $messages['errors']['password'][0] !!}</span>
+                                            @if(isset($messages['errors']['phone']))
+                                                <span class="help-block color-red font-size-13"><i class="fa fa-times-circle-o margin-right-5"></i>{!! $messages['errors']['phone'][0] !!}</span>
                                             @endif                                               
                                         </div>
                                     </div> 
                                     <div class="form-group">
                                         <label for="passwordConfirmation" class="col-sm-4 control-label">
-                                            @lang('user.passwordConfirmation')
+                                            @lang('customers.address')
                                             <i class="fa fa-asterisk color-red font-size-7"></i>   
                                         </label>
                                         <div class="col-sm-5">                                            
-                                            <input type="password" class="form-control" id="passwordConfirmation" name="password_confirmation" placeholder="@lang('user.passwordConfirmation')">                                            
+                                            <input type="address" class="form-control" id="passwordConfirmation" name="address" placeholder="@lang('user.address')">                                            
 
                                             @if(isset($messages['errors']['password_confirmation']))
                                                 <span class="help-block color-red font-size-13"><i class="fa fa-times-circle-o margin-right-5"></i>{!! $messages['errors']['password_confirmation'][0] !!}</span>
@@ -108,7 +108,7 @@
                                     @endif
                                     <div class="form-group">
                                         <label for="card" class="col-sm-4 control-label">
-                                            @lang('user.card')
+                                            @lang('customers.price')
                                             <i class="fa fa-asterisk color-red font-size-7"></i>
                                         </label>
                                         <div class="col-sm-5">                                            
@@ -124,79 +124,20 @@
                                         </div>
                                     </div> 
                                     <div class="form-group">
-                                        <label for="avatar" class="col-sm-4 control-label">@lang('user.avatar')</label>
+                                        <label for="avatar" class="col-sm-4 control-label">@lang('customers.service')</label>
                                         <div class="col-sm-5">
-                                            <div class="form-control">
-                                                <input type="file" id="avatar" name="avatar"> 
-                                            </div>                                            
+                                                <input type="text" class="form-control" id="card"  placeholder="@lang('customers.service')" name="card" value="">                                                      
                                         </div>
                                     </div> 
                                     <div class="form-group">
-                                        <label for="telephone" class="col-sm-4 control-label">@lang('user.telephone')</label>
+                                        <label for="telephone" class="col-sm-4 control-label">@lang('customers.note')</label>
                                         <div class="col-sm-5">
                                             @if(!empty($data['telephone']))                       
-                                                <input type="text" class="form-control" id="telephone" name="telephone" placeholder="@lang('user.telephone')" value="{!! $data['telephone'] !!}">
+                                                <input type="text" class="form-control" id="telephone" name="telephone" placeholder="@lang('customers.note')" value="{!! $data['telephone'] !!}">
                                             @else 
-                                                <input type="text" class="form-control" id="telephone" name="telephone" placeholder="@lang('user.telephone')">
+                                                <input type="text" class="form-control" id="telephone" name="telephone" placeholder="@lang('customers.note')">
                                             @endif                                               
                                         </div>
-                                    </div> 
-                                    <div class="form-group">
-                                        <label for="name" class="col-sm-4 control-label">@lang('user.name')</label>
-                                        <div class="col-sm-5">
-                                            @if(!empty($data['name']))                                                                       
-                                                <input type="text" class="form-control" id="name" name="name" placeholder="@lang('user.name')" value="{!! $data['name'] !!}">
-                                            @else 
-                                                <input type="text" class="form-control" id="name" name="name" placeholder="@lang('user.name')">
-                                            @endif                                              
-                                        </div>
-                                    </div>                                     
-                                    <div class="form-group">
-                                        <label for="gender" class="col-sm-4 control-label">@lang('user.gender')</label>
-                                        <div class="col-sm-5">
-                                            <select class="form-control" id="gender" name="gender">                                                
-                                                <option value="male" {!! isset($data['gender']) ? ($data['gender'] == 'male' ? 'selected' : 1 == 1) : 1 == 1 !!}>@lang('user.male')</option>
-                                                <option value="female" {!! isset($data['gender']) ? ($data['gender'] == 'female' ? 'selected' : 1 == 1) : 1 == 1 !!}>@lang('user.female')</option>
-                                                <option value="other" {!! isset($data['gender']) ? ($data['gender'] == 'other' ? 'selected' : 1 == 1) : 1 == 1 !!}>@lang('user.other')</option>
-                                            </select>
-                                        </div>
-                                    </div> 
-                                    <div class="form-group">
-                                        <label for="status" class="col-sm-4 control-label">@lang('user.status')</label>
-                                        <div class="col-sm-5">
-                                            <select class="form-control" id="gender" name="status">
-                                                <option value="1" {!! isset($data['status']) ? ($data['status'] == 1 ? 'selected' : 1 == 1) : 1 == 1 !!}>@lang('user.on')</option>
-                                                <option value="0" {!! isset($data['status']) ? ($data['status'] == 0 ? 'selected' : 1 == 1) : 1 == 1 !!}>@lang('user.off')</option>
-                                            </select>
-                                        </div>
-                                    </div> 
-                                    <div class="form-group">
-                                        <label for="role_id" class="col-sm-4 control-label">@lang('user.role')</label>
-                                        <div class="col-sm-5">
-                                            <select class="form-control" id="role_id" name="role_id">
-                                                @foreach($roles as $role)
-                                                    @if(isset($data['role_id'])) 
-                                                        @if($role['id'] == $data['role_id']) 
-                                                            <option value="{!! $role['id'] !!}" selected>@lang('user.'.$role['name'])</option>
-                                                        @else    
-                                                            <option value="{!! $role['id'] !!}">@lang('user.'.$role['name'])</option>
-                                                        @endif
-                                                    @else 
-                                                        <option value="{!! $role['id'] !!}">@lang('user.'.$role['name'])</option>
-                                                    @endif                                                                                                   
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div> 
-                                    <div class="form-group">
-                                        <label for="address" class="col-sm-4 control-label">@lang('user.address')</label>
-                                        <div class="col-sm-5">          
-                                            @if(!empty($data['address']))                                                                      
-                                                <textarea class="form-control" rows="3" id="address" name="address" placeholder="@lang('user.address') ...">{!! $data['address'] !!}</textarea>                                                
-                                            @else 
-                                                 <textarea class="form-control" rows="3" id="address" name="address" placeholder="@lang('user.address') ..."></textarea>
-                                            @endif                                            
-                                        </div>                                        
                                     </div>                                    
                                 </div>                    
                             </div>
@@ -208,17 +149,17 @@
                             @if (!$isEdit)
                             <button type="submit" name="saveAndCreate" class="btn btn-success btn-md">
                                 <i class="fa fa-save"></i>
-                                @lang('user.saveAndCreate')
+                                @lang('customers.saveAndCreate')
                             </button>
                             @endif
                             <button type="submit" name="save" class="btn btn-success btn-md">
                                 <i class="fa fa-save"></i>
-                                @lang('user.save')
+                                @lang('customers.save')
                             </button>
                             <a href="{!! URL::action('\Backend\Controllers\UserController@index') !!}">
                                 <button type="button" class="btn btn-danger btn-md">
                                     <i class="fa fa-remove"></i>
-                                    @lang('user.cancel')
+                                    @lang('customers.cancel')
                                 </button>
                             </a>
                         </div>

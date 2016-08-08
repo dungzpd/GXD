@@ -4,8 +4,8 @@ namespace Backend\Controllers;
 
 use Auth;
 use Alloy\Models\Users;
-use Alloy\Validations\UsersValidate;
-use Alloy\Services\Commons;
+use Alloy\Models\Customers;
+use Alloy\Validations\CustomerValidate;
 use Alloy\Facades\MainFacade;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
@@ -61,10 +61,21 @@ class CustomersController extends BaseController {
         return view('Backend::customers.index', compact('users', 'keyword', 'field', 'sort'));
     }
     public function create(Request $request) {
+
         $result = array('status' => false, 'action' => 'create', 'title' => 'customers.accountCreate', 'breadcrumbs' => 'account.create', 'actionForm' => URL::action('\Backend\Controllers\CustomersController@create'), 'data' => '', 'messages' => array('success' => '', 'errors' => ''));
         if ($request->isMethod('POST')) {
             $params = Input::all();
-            $result = $this->doCreate($params, $result);
+            $result['data'] = $params;
+            $CustomerValidate = new CustomerValidate();
+            $validator = $CustomerValidate->validatorCreate($params);    
+            if ($validator->errors()->count() > 0) {
+                echo $validator->errors()->count();
+                $result['messages']['errors'] = $validator->errors()->getMessages();     
+                $result['roles'] = $this->currentFilterRoles;
+                $result['isEdit'] = false;
+                return view('Backend::customers.form', $result);
+            }
+            $result = $this->onStore(new Customers, $params);
             if($result['status'] !== false) {
                 if (isset($params['saveAndCreate'])) {
                     return redirect()->action('\Backend\Controllers\CustomersController@create');
@@ -83,8 +94,8 @@ class CustomersController extends BaseController {
     protected function doCreate($data, $result) {               
         $result['data'] = $data;
         
-        $userValidate = new UsersValidate();
-        $validator = $userValidate->validatorCreate($data);            
+        $CustomerValidate = new CustomerValidate();
+        $validator = $CustomerValidate->validatorCreate($data);            
         if ($validator->errors()->count() > 0) {
             $result['messages']['errors'] = $validator->errors()->getMessages();            
             return $result;
@@ -200,5 +211,21 @@ class CustomersController extends BaseController {
         
         return redirect()->action('\Backend\Controllers\CustomersController@index');
     }
-    
+    protected function onStore($customer, $params)
+    {
+ 
+        $customer->name = isset($params['username']) ? $params['username'] : '';
+       
+        $customer->phone = isset($params['email']) ? $params['email'] : '';
+        $customer->email = isset($params['phone']) ? $params['phone'] : null;
+        $customer->note = isset($params['note']) ? $params['note'] : null;
+        $customer->address = isset($params['address']) ? $params['address'] : null;
+        $customer->price = isset($params['price']) ? $params['price'] : null;
+        $customer->id_user = $this->currentUser->id;
+        if ($customer->save()) {
+            //$this->onStoreCourse($product, (isset($params['courses']) ? $params['courses'] : null));
+            return true;
+        }
+        return false;
+    }
 }
