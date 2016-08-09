@@ -12,13 +12,13 @@
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">@lang('user.account')</h3>
+                    <h3 class="box-title">@lang('customers.account')</h3>
 
                     <div class="box-tools pull-right">
                         <form action="{!! URL::action('\Backend\Controllers\CustomersController@index') !!}" method="post">
                             {!! csrf_field(csrf_token()) !!}  
                             <div class="has-feedback">
-                                <input type="text" class="form-control input-sm" name="keyword" placeholder="@lang('user.searchAccount')" value="{!! isset($keyword) ? $keyword : '' !!}">
+                                <input type="text" class="form-control input-sm" name="keyword" placeholder="@lang('customers.searchAccount')" value="{!! isset($keyword) ? $keyword : '' !!}">
                                 <span class="glyphicon glyphicon-search form-control-feedback"></span>
                             </div>
                         </form>                        
@@ -35,12 +35,7 @@
                         <button type="button" class="btn btn-danger btn-sm" data-link="{!! URL::action('\Backend\Controllers\CustomersController@deleteMultiple') !!}"><i class="fa fa-trash"></i></button>                        
                         <a href="{!! URL::action('\Backend\Controllers\CustomersController@index') !!}">
                             <button type="button" class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
-                        </a>
-                        <div class="pull-right">                            
-                            @include('Backend::layouts.partials.pagination', array('data' => $users))
-                            <!-- /.btn-group -->
-                        </div>
-                        <!-- /.pull-right -->
+                        </a>   
                     </div>
                     <div class="table-list overflow-hidden">
                         <div class="row-group header-list">
@@ -50,31 +45,33 @@
                                         <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
                                     </div>
                                     <div class="col-md-2">
-                                        @lang('user.username')                                         
+                                        @lang('customers.username')                                         
                                         {!! \Alloy\Facades\MainFacade::generateSort(['link' => '\Backend\Controllers\CustomersController@index', 'field' => 'username', 'sort' => $sort, 'field_vs' => $field]) !!}
-                                    </div>                                    
+                                    </div>     
+                                     
                                     <div class="col-md-3">
-                                        @lang('user.email')
+                                        @lang('customers.email')
                                         {!! \Alloy\Facades\MainFacade::generateSort(['link' => '\Backend\Controllers\CustomersController@index', 'field' => 'email', 'sort' => $sort, 'field_vs' => $field]) !!}
                                     </div>
                                     <div class="col-md-2">
-                                        @lang('user.role')
+                                        @lang('customers.phone')
                                         {!! \Alloy\Facades\MainFacade::generateSort(['link' => '\Backend\Controllers\CustomersController@index', 'field' => 'role', 'sort' => $sort, 'field_vs' => $field]) !!}
                                     </div>
                                     <div class="col-md-2">
-                                        @lang('user.status') 
+                                        @lang('customers.product_type') 
                                         {!! \Alloy\Facades\MainFacade::generateSort(['link' => '\Backend\Controllers\CustomersController@index', 'field' => 'status', 'sort' => $sort, 'field_vs' => $field]) !!}
                                     </div>    
                                     <div class="col-md-2">
-                                        @lang('user.actions')
-                                    </div> 
+                                        @lang('customers.status') 
+                                        {!! \Alloy\Facades\MainFacade::generateSort(['link' => '\Backend\Controllers\CustomersController@index', 'field' => 'status', 'sort' => $sort, 'field_vs' => $field]) !!}
+                                    </div>  
                                 </div>
                             </div>      
                         </div>
-
+   
                         <div class="row-group content-list">
-                            @if(!empty($users)) 
-                                @foreach($users as $user)
+                            @if(!empty($customer)) 
+                                @foreach($customer as $customer)
                                     <div class="row item">
                                         <div class="col-md-12">
                                             <div class="col-md-1 padding-left-10">
@@ -84,28 +81,30 @@
                                                     data-increase-area="20%">                                                
                                             </div>
                                             <div class="col-md-2">
-                                                <a href="{!! URL::action('\Backend\Controllers\CustomersController@edit', array('id' => $user->id))!!}">
-                                                    {!! $user->username !!}                               
+                                                <a href="{!! URL::action('\Backend\Controllers\CustomersController@edit', array('id' => $customer->id))!!}">
+                                                    {!! $customer->name !!}                               
                                                 </a>
-                                            </div>                                            
+                                            </div>      
+                                            
                                             <div class="col-md-3">
-                                                {!! $user->email !!}                                
+                                                {!! $customer->phone !!}                                
                                             </div>
                                             <div class="col-md-2">
-                                                @lang('user.'.$user->role->name)                             
+                                                {!! $customer->email !!}                               
                                             </div>
                                             <div class="col-md-2">                                                       
-                                                <a href="{!! URL::action('\Backend\Controllers\CustomersController@status', array('id' => $user->id)) !!}">
-                                                    <button type="button" class="btn btn-{!! $user->status > 0 ? 'info' : 'warning' !!} btn-sm"><i class="fa fa-toggle-{!! $user->status > 0 ? 'on' : 'off' !!}"></i></button>                                         
+                                                <a href="{!! URL::action('\Backend\Controllers\CustomersController@status', array('id' => $customer->id)) !!}">
+                                                    <button type="button" class="btn btn-{!! $customer->status > 0 ? 'info' : 'warning' !!} btn-sm"><i class="fa fa-toggle-{!! $customer->status > 0 ? 'on' : 'off' !!}"></i></button>                                         
                                                 </a>                                                
                                             </div>
+                                    
                                             <div class="col-md-2">
-                                                <a href="{!! URL::action('\Backend\Controllers\CustomersController@edit', array('id' => $user->id)) !!}">
+                                                <a href="{!! URL::action('\Backend\Controllers\CustomersController@edit', array('id' => $customer->id)) !!}">
                                                     <button type="button" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></button>
                                                 </a>
-                                                <a href="{!! URL::action('\Backend\Controllers\CustomersController@delete', array('id' => $user->id, 'currentPage' => $users->currentPage())) !!}">
+                                               
                                                     <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>   
-                                                </a>                          
+                                                                          
                                             </div> 
                                         </div>
                                     </div>  
@@ -126,10 +125,7 @@
                         <a href="{!! URL::action('\Backend\Controllers\CustomersController@index') !!}">
                             <button type="button" class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
                         </a>                        
-                        <div class="pull-right">
-                            @include('Backend::layouts.partials.pagination', array('data' => $users))
-                            <!-- /.btn-group -->
-                        </div>
+                       
                         <!-- /.pull-right -->
                     </div>
                 </div>

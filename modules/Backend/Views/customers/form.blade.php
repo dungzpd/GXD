@@ -1,7 +1,7 @@
 @extends('Backend::layouts.default')
 
 @section('title', Lang::get($title))
-
+@include('Backend::customers.scripts')
 @section('content')
 
 {!! Breadcrumbs::render($breadcrumbs) !!}
@@ -19,7 +19,7 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body no-padding">
-                        <div class="table-list form-horizontal overflow-hidden">
+                        <div class="table-list form-horizontal ">
                             <div class="row-group content-list">
                                 <div class="box-body">
                                     @if(!empty($messages['errors']['common']))
@@ -123,12 +123,32 @@
                                             @endif   
                                         </div>
                                     </div> 
-                                    <div class="form-group">
-                                        <label for="avatar" class="col-sm-4 control-label">@lang('customers.service')</label>
-                                        <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="card"  placeholder="@lang('customers.service')" name="card" value="">                                                      
-                                        </div>
-                                    </div> 
+                                    
+                                    <div class="box-body">
+                                            <div class="form-group">
+                                                <label for="avatar" class="col-sm-4 control-label">@lang('customers.service')</label>
+                                                <div class="col-sm-5"> 
+                                                <select class="form-control"
+                                                    name="customers[products][]" 
+                                                    init="selectize"
+                                                    multiple="multiple" 
+                                                    data-placeholder="@lang('categories.selectCourse')">
+                                                    @foreach($data['products'] as $product)
+                                                        <option value="{!! $product->id !!}"
+                                                            @if (!empty($data['productsId']) && in_array($product->id, $data['productsId']))
+                                                                selected="selected"
+                                                            @endif>
+                                                            {!! $product->name !!}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                </div>
+                                            </div>
+                                    
+                                    </div>
+                                        
+                                        <!-- end box body -->
+                                   
                                     <div class="form-group">
                                         <label for="telephone" class="col-sm-4 control-label">@lang('customers.note')</label>
                                         <div class="col-sm-5">

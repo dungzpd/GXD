@@ -32,4 +32,5 @@ return [
     'save' => 'Lưu',
     'saveAndCreate' => 'Lưu và tạo mới',
     'cancel' => 'Huỷ',
+    'product_type' => 'Loại phần mềm',
 ];

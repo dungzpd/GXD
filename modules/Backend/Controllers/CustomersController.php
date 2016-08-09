@@ -34,19 +34,17 @@ class CustomersController extends BaseController {
         $sort = Input::get('sort');
         Input::get('keyword') ? $keyword = Input::get('keyword') : 1 == 1;
 
-        $users = Users::where('id', '!=', $this->currentUser->id)->whereIn('role_id', $this->currentFilterRoleIds);
+        $customer = Customers::where('id_user', $this->currentUser->id);
 
         if(empty($field) && empty($sort)) {
-            $users = $users->orderBy('created_at', 'asc')->paginate($this->perPage);
+            $customer = $customer->orderBy('created_at', 'asc')->paginate($this->perPage);
         } else {
-            ($field == 'role') ? $col = 'role_id' : $col = $field;
-            $users = $users->orderBy($col, $sort)->paginate($this->perPage);
+          ($field == 'role') ? $col = 'role_id' : $col = $field;
+           $customer = $customer->orderBy($col, $sort)->paginate($this->perPage);
         }
         
-        
         if(isset($keyword)) {
-            $users = Users::where('id', '!=', $this->currentUser->id)
-                    ->whereIn('role_id', $this->currentFilterRoleIds)                                      
+            $customer = Customers::where('id_user', '==', $this->currentUser->id)                                 
                     ->where(function ($query) use ($keyword) {
                         $query->where('username', 'like', '%'. $keyword .'%')
                                 ->orWhere('email', 'like', '%'. $keyword .'%')
@@ -57,8 +55,7 @@ class CustomersController extends BaseController {
         } else {
             $keyword = null;
         }
-        
-        return view('Backend::customers.index', compact('users', 'keyword', 'field', 'sort'));
+        return view('Backend::customers.index', compact('customer', 'keyword', 'field', 'sort'));
     }
     public function create(Request $request) {
 
@@ -83,7 +80,8 @@ class CustomersController extends BaseController {
                 return redirect()->action('\Backend\Controllers\CustomersController@index');
             }            
         }
-                       
+        
+        $result['data']['products'] = Customers::allProduct();
         $result['roles'] = $this->currentFilterRoles;
         $result['isEdit'] = false;
         
@@ -228,4 +226,5 @@ class CustomersController extends BaseController {
         }
         return false;
     }
+
 }
