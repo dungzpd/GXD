@@ -1,7 +1,7 @@
 <?php
 
 namespace Alloy\Models;
-
+use DB;
 use Alloy\Models\Base;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -40,7 +40,12 @@ class Customers extends Base {
         $products = Products::where(['status'=>'active'])->get();
         return $products;
     }
-
     
+    public static function insert_customerid($customerId,$serviceId){
+         DB::table('customers_service')->insert([
+            'id_customer' => $customerId,
+            'id_service' => $serviceId,
+    ]);
+    }
 
 }

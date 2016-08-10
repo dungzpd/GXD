@@ -244,7 +244,6 @@ class CategoriesController extends BaseController
         $category->image = isset($params['image']) ? $params['image'] : null;
         $category->order = isset($params['order']) ? $params['order'] : 0;
         $category->status = isset($params['status']) ? $params['status'] : 'inactive';
-
         if ($category->save()) {
             $this->onStoreCourse($category, (isset($params['courses']) ? $params['courses'] : null));
             return true;
@@ -261,6 +260,8 @@ class CategoriesController extends BaseController
      **/
     private function onStoreCourse($category = null, $coursesId = array())
     {
+        print_r($coursesId);
+        die();
         if (!empty($category)) {
             if (empty($coursesId)) {
                 if ($category->courses() && count($category->courses) > 0) {
@@ -270,7 +271,8 @@ class CategoriesController extends BaseController
 
             if (!empty($coursesId)) {
                 $courses = Courses::whereIn('id', $coursesId)->get();
-
+                //print_r($courses);
+                //die();
                 $sync = [];
                 foreach ($courses as $course) {
                     $sync[$course->id] = ['caption' => ''];

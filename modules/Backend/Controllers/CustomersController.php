@@ -4,7 +4,10 @@ namespace Backend\Controllers;
 
 use Auth;
 use Alloy\Models\Users;
+use Alloy\Models\Courses;
+use Alloy\Models\Order;
 use Alloy\Models\Customers;
+use Alloy\Models\Service;
 use Alloy\Validations\CustomerValidate;
 use Alloy\Facades\MainFacade;
 use Illuminate\Http\Request;
@@ -59,18 +62,22 @@ class CustomersController extends BaseController {
     }
     public function create(Request $request) {
 
-        $result = array('status' => false, 'action' => 'create', 'title' => 'customers.accountCreate', 'breadcrumbs' => 'account.create', 'actionForm' => URL::action('\Backend\Controllers\CustomersController@create'), 'data' => '', 'messages' => array('success' => '', 'errors' => ''));
+        $result = array('status' => false, 'action' => 'create', 'title' => 'customers.accountCreate', 'breadcrumbs' => 'account.create', 'actionForm' => URL::action('\Backend\Controllers\CustomersController@create'), 'data' => '', 'services' => '', 'messages' => array('success' => '', 'errors' => ''));
+        $result['services'] = Service::allService();
         if ($request->isMethod('POST')) {
+
             $params = Input::all();
             $result['data'] = $params;
             $CustomerValidate = new CustomerValidate();
             $validator = $CustomerValidate->validatorCreate($params);    
+
             if ($validator->errors()->count() > 0) {
-                echo $validator->errors()->count();
+
+                $validator->errors()->count();
                 $result['messages']['errors'] = $validator->errors()->getMessages();     
                 $result['roles'] = $this->currentFilterRoles;
                 $result['isEdit'] = false;
-                return view('Backend::customers.form', $result);
+                return view('Backend::customers.form',$result);
             }
             $result = $this->onStore(new Customers, $params);
             if($result['status'] !== false) {
@@ -81,11 +88,11 @@ class CustomersController extends BaseController {
             }            
         }
         
-        $result['data']['products'] = Customers::allProduct();
+        
         $result['roles'] = $this->currentFilterRoles;
         $result['isEdit'] = false;
         
-        return view('Backend::customers.form', $result);
+        return view('Backend::customers.form',$result);
     }
    
 
@@ -216,15 +223,52 @@ class CustomersController extends BaseController {
        
         $customer->phone = isset($params['email']) ? $params['email'] : '';
         $customer->email = isset($params['phone']) ? $params['phone'] : null;
-        $customer->note = isset($params['note']) ? $params['note'] : null;
         $customer->address = isset($params['address']) ? $params['address'] : null;
         $customer->price = isset($params['price']) ? $params['price'] : null;
         $customer->id_user = $this->currentUser->id;
+        $note = isset($params['note']) ? $params['note'] : null;
         if ($customer->save()) {
-            //$this->onStoreCourse($product, (isset($params['courses']) ? $params['courses'] : null));
+            $count = Customers::select('id')->max('id');
+            $this->insertorder($count,$note);
+            die();
+            $this->onStoreCustomer($customer, (isset($params['customers']['services']) ? $params['customers']['services'] : null));
             return true;
         }
         return false;
     }
+    
+    private function onStoreCustomer($products = null, $productsId = array())
+    {
+        $courses = Service::whereIn('id', $productsId)->get();
+        foreach ($courses as $value) {
+            Customers::insert_customerid($this->currentUser->id,$value);
+        }
+        die();
+        if (!empty($products)) {
+            if (empty($productsId)) {
+                if ($products->courses() && count($products->courses) > 0) {
+                    $products->courses()->detach();
+                }
+            }
 
+            if (!empty($coursesId)) {
+                $courses = Courses::whereIn('id', $coursesId)->get();
+
+                $sync = [];
+                foreach ($courses as $course) {
+                    $sync[$course->id] = ['caption' => ''];
+                }
+                $category->courses() ? $category->courses()->sync($sync) : $category->courses()->attach($sync);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private function insertorder($customerId,$note)
+    {
+        Order::insert(['id_customer' => $customerId,'id_user' => $this->currentUser->id,'note'=>$note]);
+        $count = Order::select('id')->max('id');
+        return $count;
+    }
 }
