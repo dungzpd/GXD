@@ -23,7 +23,7 @@ class Customers extends Base {
      *
      * @var array
      */
-    protected $fillable = ['id', 'id_user', 'name', 'phone',
+    protected $fillable = ['id',  'name', 'phone',
         'email', 'address', 'price',  'service', 'note','created_at', 'updated_at', 'deleted_at'];
 
     
@@ -41,11 +41,6 @@ class Customers extends Base {
         return $products;
     }
     
-    public static function insert_customerid($customerId,$serviceId){
-         DB::table('customers_service')->insert([
-            'id_customer' => $customerId,
-            'id_service' => $serviceId,
-    ]);
-    }
+
 
 }

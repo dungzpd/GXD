@@ -22,10 +22,11 @@ class Order extends Base {
      *
      * @var array
      */
-    protected $fillable = ['id', 'id_customer','note','created_at', 'updated_at','deleted_at'];
+    protected $fillable = ['id', 'id_customer','note','id_user','created_at', 'updated_at','deleted_at'];
 
     /**
      * Get course
      */
+   public $timestamps = true;
 
 }

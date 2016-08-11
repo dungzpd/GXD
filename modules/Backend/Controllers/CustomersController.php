@@ -37,8 +37,8 @@ class CustomersController extends BaseController {
         $sort = Input::get('sort');
         Input::get('keyword') ? $keyword = Input::get('keyword') : 1 == 1;
 
-        $customer = Customers::where('id_user', $this->currentUser->id);
-
+        //$customer = Customers::where('id_user', $this->currentUser->id);
+        $customer = Customers::select();
         if(empty($field) && empty($sort)) {
             $customer = $customer->orderBy('created_at', 'asc')->paginate($this->perPage);
         } else {
@@ -221,53 +221,38 @@ class CustomersController extends BaseController {
  
         $customer->name = isset($params['username']) ? $params['username'] : '';
        
-        $customer->phone = isset($params['email']) ? $params['email'] : '';
-        $customer->email = isset($params['phone']) ? $params['phone'] : null;
+        $customer->phone = isset($params['phone']) ? $params['phone'] : '';
+        $customer->email = isset($params['email']) ? $params['email'] : null;
         $customer->address = isset($params['address']) ? $params['address'] : null;
         $customer->price = isset($params['price']) ? $params['price'] : null;
-        $customer->id_user = $this->currentUser->id;
+        $id_user = $this->currentUser->id;
         $note = isset($params['note']) ? $params['note'] : null;
         if ($customer->save()) {
             $count = Customers::select('id')->max('id');
-            $this->insertorder($count,$note);
-            die();
-            $this->onStoreCustomer($customer, (isset($params['customers']['services']) ? $params['customers']['services'] : null));
+            $id_order = $this->insertorder(new Order ,$count,$note);
+            $this->insertservices($id_order, (isset($params['customers']['services']) ? $params['customers']['services'] : null));
             return true;
         }
         return false;
     }
     
-    private function onStoreCustomer($products = null, $productsId = array())
+    private function insertservices($id_order, $serviceId)
     {
-        $courses = Service::whereIn('id', $productsId)->get();
-        foreach ($courses as $value) {
-            Customers::insert_customerid($this->currentUser->id,$value);
+        $services = Service::whereIn('id', $serviceId)->get();
+        
+        foreach ($serviceId as $value) {
+            Service::insert_services($id_order,$value);
         }
-        die();
-        if (!empty($products)) {
-            if (empty($productsId)) {
-                if ($products->courses() && count($products->courses) > 0) {
-                    $products->courses()->detach();
-                }
-            }
-
-            if (!empty($coursesId)) {
-                $courses = Courses::whereIn('id', $coursesId)->get();
-
-                $sync = [];
-                foreach ($courses as $course) {
-                    $sync[$course->id] = ['caption' => ''];
-                }
-                $category->courses() ? $category->courses()->sync($sync) : $category->courses()->attach($sync);
-                return true;
-            }
-        }
-        return false;
+        return true;
     }
     
-    private function insertorder($customerId,$note)
+    private function insertorder($order,$customerId,$note)
     {
-        Order::insert(['id_customer' => $customerId,'id_user' => $this->currentUser->id,'note'=>$note]);
+       // Order::insert(['id_customer' => $customerId,'id_user' => $this->currentUser->id,'note'=>$note]);
+        $order->id_customer = $customerId;
+        $order->id_user = $this->currentUser->id;
+        $order->note = $note;
+        $order->save();
         $count = Order::select('id')->max('id');
         return $count;
     }

@@ -1,7 +1,7 @@
 <?php
 
 namespace Alloy\Models;
-
+use DB;
 use Alloy\Models\Base;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -30,5 +30,12 @@ class Service extends Base {
     public static function allService(){
     $service = Service::where(['status'=>'active'])->get();
     return $service;
+    }
+    
+    public static function insert_services($id_order,$serviceId){
+     DB::table('service_order')->insert([
+        'id_order' => $id_order,
+        'id_service' => $serviceId,
+    ]);
     }
 }

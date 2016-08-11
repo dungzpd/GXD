@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         @lang('customers.username')                                         
-                                        {!! \Alloy\Facades\MainFacade::generateSort(['link' => '\Backend\Controllers\CustomersController@index', 'field' => 'username', 'sort' => $sort, 'field_vs' => $field]) !!}
+                                        {!! \Alloy\Facades\MainFacade::generateSort(['link' => '\Backend\Controllers\CustomersController@index', 'field' => 'name', 'sort' => $sort, 'field_vs' => $field]) !!}
                                     </div>     
                                      
                                     <div class="col-md-3">
@@ -87,10 +87,10 @@
                                             </div>      
                                             
                                             <div class="col-md-3">
-                                                {!! $customer->phone !!}                                
+                                                {!! $customer->email !!}                                
                                             </div>
                                             <div class="col-md-2">
-                                                {!! $customer->email !!}                               
+                                                {!! $customer->phone !!}                               
                                             </div>
                                             <div class="col-md-2">                                                       
                                                 <a href="{!! URL::action('\Backend\Controllers\CustomersController@status', array('id' => $customer->id)) !!}">

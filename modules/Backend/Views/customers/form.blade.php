@@ -49,13 +49,30 @@
                                         </label>
                                         <div class="col-sm-5">
                                             @if(!empty($data['username']))
-                                            <input type="text" class="form-control" id="username" name="username" placeholder="@lang('user.username')" value="{!! $data['username'] !!}">                                                
+                                            <input type="text" class="form-control" id="username" name="username" placeholder="@lang('customers.username')" value="{!! $data['username'] !!}">                                                
                                             @else 
-                                            <input type="text" class="form-control" id="username" name="username" placeholder="@lang('user.username')">
+                                            <input type="text" class="form-control" id="username" name="username" placeholder="@lang('customers.username')">
                                             @endif      
                                             @if(isset($messages['errors']['username']))                                           
                                             <span class="help-block color-red font-size-13"><i class="fa fa-times-circle-o margin-right-5"></i>{!! $messages['errors']['username'][0] !!}</span>
                                             @endif                                            
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email" class="col-sm-4 control-label">
+                                            @lang('customers.phone')
+                                            <i class="fa fa-asterisk color-red font-size-7"></i>   
+                                        </label>
+                                        <div class="col-sm-5">                                            
+                                            @if(!empty($data['phone']))
+                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="@lang('customers.phone')" value="{!! $data['phone'] !!}">                                               
+                                            @else 
+                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="@lang('customers.phone')">
+                                            @endif      
+
+                                            @if(isset($messages['errors']['phone']))
+                                            <span class="help-block color-red font-size-13"><i class="fa fa-times-circle-o margin-right-5"></i>{!! $messages['errors']['phone'][0] !!}</span>
+                                            @endif       
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -119,12 +136,12 @@
                                 <!-- end box body -->
 
                                 <div class="form-group">
-                                    <label for="telephone" class="col-sm-4 control-label">@lang('customers.note')</label>
+                                    <label for="note" class="col-sm-4 control-label">@lang('customers.note')</label>
                                     <div class="col-sm-5">
-                                        @if(!empty($data['telephone']))                       
-                                        <input type="text" class="form-control" id="telephone" name="note" placeholder="@lang('customers.note')" value="{!! $data['telephone'] !!}">
+                                        @if(!empty($data['note']))                       
+                                        <input type="text" class="form-control" id="note" name="note" placeholder="@lang('customers.note')" value="{!! $data['note'] !!}">
                                         @else 
-                                        <input type="text" class="form-control" id="telephone" name="note" placeholder="@lang('customers.note')">
+                                        <input type="text" class="form-control" id="note" name="note" placeholder="@lang('customers.note')">
                                         @endif                                               
                                     </div>
                                 </div>                                    
