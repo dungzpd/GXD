@@ -58,7 +58,7 @@
                                         {!! \Alloy\Facades\MainFacade::generateSort(['link' => '\Backend\Controllers\CustomersController@index', 'field' => 'role', 'sort' => $sort, 'field_vs' => $field]) !!}
                                     </div>
                                     <div class="col-md-2">
-                                        @lang('customers.product_type') 
+                                        @lang('customers.note') 
                                         {!! \Alloy\Facades\MainFacade::generateSort(['link' => '\Backend\Controllers\CustomersController@index', 'field' => 'status', 'sort' => $sort, 'field_vs' => $field]) !!}
                                     </div>    
                                     <div class="col-md-2">
@@ -68,10 +68,10 @@
                                 </div>
                             </div>      
                         </div>
-   
+                        
                         <div class="row-group content-list">
                             @if(!empty($customer)) 
-                                @foreach($customer as $customer)
+                                @foreach($customer as $customers)
                                     <div class="row item">
                                         <div class="col-md-12">
                                             <div class="col-md-1 padding-left-10">
@@ -81,25 +81,23 @@
                                                     data-increase-area="20%">                                                
                                             </div>
                                             <div class="col-md-2">
-                                                <a href="{!! URL::action('\Backend\Controllers\CustomersController@edit', array('id' => $customer->id))!!}">
-                                                    {!! $customer->name !!}                               
+                                                <a href="{!! URL::action('\Backend\Controllers\CustomersController@edit', array('id' => $customers->id))!!}">
+                                                    {!! $customers->name !!}                               
                                                 </a>
                                             </div>      
                                             
                                             <div class="col-md-3">
-                                                {!! $customer->email !!}                                
+                                                {!! $customers->phone !!}                                
                                             </div>
                                             <div class="col-md-2">
-                                                {!! $customer->phone !!}                               
+                                                {!! $customers->email !!}                               
                                             </div>
-                                            <div class="col-md-2">                                                       
-                                                <a href="{!! URL::action('\Backend\Controllers\CustomersController@status', array('id' => $customer->id)) !!}">
-                                                    <button type="button" class="btn btn-{!! $customer->status > 0 ? 'info' : 'warning' !!} btn-sm"><i class="fa fa-toggle-{!! $customer->status > 0 ? 'on' : 'off' !!}"></i></button>                                         
-                                                </a>                                                
+                                            <div class="col-md-2">
+                                                {!! $customers->note !!}                               
                                             </div>
                                     
                                             <div class="col-md-2">
-                                                <a href="{!! URL::action('\Backend\Controllers\CustomersController@edit', array('id' => $customer->id)) !!}">
+                                                <a href="{!! URL::action('\Backend\Controllers\CustomersController@edit', array('id' => $customers->id)) !!}">
                                                     <button type="button" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></button>
                                                 </a>
                                                

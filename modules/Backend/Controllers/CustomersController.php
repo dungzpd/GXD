@@ -36,15 +36,12 @@ class CustomersController extends BaseController {
         $field = Input::get('field');
         $sort = Input::get('sort');
         Input::get('keyword') ? $keyword = Input::get('keyword') : 1 == 1;
-
+        $customer = array();
+        $customer = Order::Customer_Info($this->currentUser->id,$field,$sort,$this->perPage);
+        
         //$customer = Customers::where('id_user', $this->currentUser->id);
-        $customer = Customers::select();
-        if(empty($field) && empty($sort)) {
-            $customer = $customer->orderBy('created_at', 'asc')->paginate($this->perPage);
-        } else {
-          ($field == 'role') ? $col = 'role_id' : $col = $field;
-           $customer = $customer->orderBy($col, $sort)->paginate($this->perPage);
-        }
+        //$customer = Customers::select();
+        
         
         if(isset($keyword)) {
             $customer = Customers::where('id_user', '==', $this->currentUser->id)                                 

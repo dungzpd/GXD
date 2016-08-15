@@ -41,6 +41,9 @@ class Customers extends Base {
         return $products;
     }
     
-
+    public static function getCustomer($id){
+        $customer = Customers::select('name','phone','email','address')->where(['id'=>$id])->get();
+        return $customer;
+    }
 
 }
